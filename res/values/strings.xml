@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="welcome">Welcome to EasyCounts!</string>
+    <string name="app_name">EasyCounts</string>
+    <string name="add_group">Add a group</string>
+    <string name="load_group">Load a group</string>    
+    <string name="group_name">Group Name :</string>
+    <string name="members">Members :</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    
+    
+        
+
+</resources>
