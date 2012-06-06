@@ -23,16 +23,23 @@
         android:layout_height="wrap_content"
         android:text="@string/members" 
         />
-    
+    <ImageButton
+        android:id="@+id/addMember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bigplus"
+        />
 	<Button
-        android:id="@+id/createGroup"
+        android:id="@+id/applyCreateGroup"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create" />
+        android:text="@string/apply" 
+        />
 	<Button
         android:id="@+id/cancelCreateGroup"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/cancel" />
+        android:text="@string/cancel" 
+        />
 
 </LinearLayout>

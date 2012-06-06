@@ -11,27 +11,71 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int bigmoins=0x7f020000;
+        public static final int bigplus=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int plus=0x7f020003;
     }
     public static final class id {
-        public static final int addGroup=0x7f050003;
-        public static final int cancelCreateGroup=0x7f050002;
-        public static final int createGroup=0x7f050001;
+        public static final int addExpense=0x7f050006;
+        public static final int addFriend=0x7f05000c;
+        public static final int addGroup=0x7f050008;
+        public static final int addMember=0x7f050001;
+        public static final int addNewExpense=0x7f05000e;
+        public static final int amount=0x7f05000d;
+        public static final int applyCreateGroup=0x7f050002;
+        public static final int balance=0x7f050007;
+        public static final int cancelAddExpense=0x7f05000f;
+        public static final int cancelCreateGroup=0x7f050003;
+        public static final int expenseName=0x7f05000a;
+        public static final int goBack=0x7f050005;
         public static final int groupName=0x7f050000;
-        public static final int loadGroup=0x7f050004;
+        public static final int loadGroup=0x7f050009;
+        public static final int paidBySpinner=0x7f05000b;
+        public static final int transactions=0x7f050004;
     }
     public static final class layout {
         public static final int addgroup=0x7f030000;
-        public static final int main=0x7f030001;
+        public static final int balance=0x7f030001;
+        public static final int grouppage=0x7f030002;
+        public static final int main=0x7f030003;
+        public static final int newexpense=0x7f030004;
+        public static final int transactions=0x7f030005;
     }
     public static final class string {
-        public static final int add_group=0x7f040002;
-        public static final int app_name=0x7f040001;
-        public static final int cancel=0x7f040007;
-        public static final int create=0x7f040006;
-        public static final int group_name=0x7f040004;
-        public static final int load_group=0x7f040003;
-        public static final int members=0x7f040005;
-        public static final int welcome=0x7f040000;
+        /**  GroupActivity 
+         */
+        public static final int add_expense=0x7f04000a;
+        public static final int add_friend=0x7f04000f;
+        public static final int add_group=0x7f040005;
+        public static final int amount=0x7f04000e;
+        public static final int app_name=0x7f040004;
+        public static final int apply=0x7f040002;
+        public static final int balance=0x7f04000b;
+        /**  for several activities 
+         */
+        public static final int cancel=0x7f040000;
+        public static final int create=0x7f040009;
+        public static final int date=0x7f040011;
+        public static final int expenditures_balance=0x7f040014;
+        public static final int expense_name=0x7f04000d;
+        public static final int for_members=0x7f040012;
+        /**  BalanceActivity 
+         */
+        public static final int global_balance=0x7f040013;
+        public static final int go_back=0x7f040001;
+        /**  AddGroupActivity 
+         */
+        public static final int group_name=0x7f040007;
+        public static final int load_group=0x7f040006;
+        public static final int members=0x7f040008;
+        /**  NewExpenseActivity 
+         */
+        public static final int paid_by=0x7f04000c;
+        public static final int paid_by_user_prompt=0x7f040010;
+        public static final int transactions=0x7f040015;
+        /**  HomeScreenActivity 
+         */
+        public static final int welcome=0x7f040003;
     }
 }

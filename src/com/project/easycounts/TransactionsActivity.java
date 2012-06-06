@@ -6,22 +6,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class HomeScreenActivity extends Activity{
-
+public class TransactionsActivity extends Activity{
     /** Called when the activity is first created. */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        final Button addGroupButton = (Button) findViewById(R.id.addGroup);
+        setContentView(R.layout.transactions);
+        final Button returnButton = (Button) findViewById(R.id.goBack);
 
-        addGroupButton.setOnClickListener(new View.OnClickListener() {
+        returnButton.setOnClickListener(new View.OnClickListener() {
+			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(v.getContext(), AddGroupActivity.class);
+				Intent intent = new Intent(v.getContext(), BalanceActivity.class);
 				startActivity(intent);
 			}
 		});
-		
+        
+        
     }
 }

@@ -21,6 +21,18 @@
         <activity
             android:name=".AddGroupActivity">
         </activity>
+        <activity
+            android:name=".GroupActivity">
+        </activity>
+        <activity
+            android:name=".NewExpenseActivity">
+        </activity>
+        <activity
+            android:name=".BalanceActivity">
+        </activity>
+        <activity
+            android:name=".TransactionsActivity">
+        </activity>
     </application>
 
 </manifest>

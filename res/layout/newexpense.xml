@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <EditText
+        android:id="@+id/expenseName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/expense_name"
+        />    
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/paid_by" 
+        />
+    <Spinner
+        android:id="@+id/paidBySpinner"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:prompt="@string/paid_by_user_prompt"
+        />
+    <Button 
+       	android:id="@+id/addFriend"
+   		android:layout_width="wrap_content"
+     	android:layout_height="wrap_content"
+   	    android:text="@string/add_friend"
+       />
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/amount"
+        />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/date"
+        />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/for_members"
+        />
+    
+    <!-- TODO: ajouter case à cocher ("tous") et boutons radio avec participants 
+    et case "proportion" avec spinner pour la proportion (pourcentage ou montant) -->
+    
+    <Button
+       	android:id="@+id/addNewExpense"
+   		android:layout_width="wrap_content"
+     	android:layout_height="wrap_content"
+   	    android:text="@string/add_expense"        
+        />
+    <Button
+       	android:id="@+id/cancelAddExpense"
+   		android:layout_width="wrap_content"
+     	android:layout_height="wrap_content"
+   	    android:text="@string/cancel"        
+        /> 
+    
+    
+</LinearLayout>

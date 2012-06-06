@@ -6,26 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class AddGroupActivity extends Activity {
+public class BalanceActivity extends Activity {
     /** Called when the activity is first created. */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.addgroup);
+        setContentView(R.layout.balance);
         
-        final Button cancelButton = (Button) findViewById(R.id.cancelCreateGroup);
-        final Button applyButton = (Button) findViewById(R.id.applyCreateGroup);
+        final Button returnButton = (Button) findViewById(R.id.goBack);
+        final Button transactionsButton = (Button) findViewById(R.id.transactions);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(v.getContext(), HomeScreenActivity.class);
-				startActivity(intent);
-			}
-		});
-        
-        applyButton.setOnClickListener(new View.OnClickListener() {			
+        returnButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(v.getContext(), GroupActivity.class);
@@ -33,5 +25,12 @@ public class AddGroupActivity extends Activity {
 			}
 		});
         
+        transactionsButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(v.getContext(), TransactionsActivity.class);
+				startActivity(intent);
+			}
+		});
     }
 }

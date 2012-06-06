@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="welcome">Welcome to EasyCounts!</string>
-    <string name="app_name">EasyCounts</string>
-    <string name="add_group">Add a group</string>
-    <string name="load_group">Load a group</string>    
-    <string name="group_name">Group Name :</string>
-    <string name="members">Members :</string>
-    <string name="create">Create</string>
+<!-- for several activities -->    
     <string name="cancel">Cancel</string>
+    <string name="go_back">Return</string>
+    <string name="apply">Apply</string>
     
+<!-- HomeScreenActivity -->
+    <string name="welcome">Welcome to EasyCounts!</string>
+    <string name="app_name">PayMeBack</string>
+    <string name="add_group">Add a group</string>
+    <string name="load_group">Load a group</string> 
     
-        
-
+<!-- AddGroupActivity -->
+    <string name="group_name">Group Name</string>
+    <string name="members">Members:</string>
+    <string name="create">Create</string>
+    
+<!-- GroupActivity -->    
+    <string name="add_expense">Add Expense</string>
+    <string name="balance">Balance</string>
+    
+<!-- NewExpenseActivity -->
+    <string name="paid_by">Paid by:</string>
+    <string name="expense_name">Name of the expense</string>
+    <string name="amount">Amount</string>
+    <string name="add_friend">Add a Friend</string>        
+    <string name="paid_by_user_prompt">Choose the group member who paid for this expense</string>        
+    <string name="date">Date</string>
+    <string name="for_members">For:</string>
+    
+<!-- BalanceActivity -->   
+    <string name="global_balance">Global Balance:</string>
+    <string name="expenditures_balance">Expenditures Balance:</string>
+    <string name="transactions">Transactions</string>
+    
 </resources>
