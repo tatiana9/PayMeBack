@@ -10,36 +10,62 @@
         android:text="@string/group_name" 
         />
  -->
+ 	<LinearLayout
+ 	    android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical" >
    
-    <EditText
-        android:id="@+id/groupName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/group_name"
-        />
+    	<EditText
+        	android:id="@+id/groupName"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:hint="@string/group_name"
+        	/>
     
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/members" 
-        />
-    <ImageButton
-        android:id="@+id/addMember"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/bigplus"
-        />
-	<Button
-        android:id="@+id/applyCreateGroup"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/apply" 
-        />
-	<Button
-        android:id="@+id/cancelCreateGroup"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cancel" 
-        />
+    	<TextView
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/members" 
+    	    />
+    	<ImageButton
+    	    android:id="@+id/addMember"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:src="@drawable/bigplus"
+    	    />
+	</LinearLayout>
 
+	<LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical">
+    
+    	<ListView
+    	    android:id="@+id/listMembers"
+        	android:layout_width="fill_parent"
+        	android:layout_height="fill_parent"
+        	/>
+    	
+    </LinearLayout>
+    
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical">
+    	
+		<Button
+    	    android:id="@+id/applyCreateGroup"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:layout_weight="1"
+    	    android:text="@string/apply" 
+    	    />
+		<Button
+    	    android:id="@+id/cancelCreateGroup"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:layout_weight="1"
+    	    android:text="@string/cancel" 
+    	    />
+	</LinearLayout>
 </LinearLayout>

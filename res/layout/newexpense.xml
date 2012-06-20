@@ -4,63 +4,88 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
     
-    <EditText
-        android:id="@+id/expenseName"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/expense_name"
-        />    
-    <TextView 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/paid_by" 
-        />
-    <Spinner
-        android:id="@+id/paidBySpinner"
+    	android:layout_height="wrap_content"
+   		android:orientation="vertical" >
+    
+    	<EditText
+    	    android:id="@+id/expenseName"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:hint="@string/expense_name"
+    	    />    
+    	<TextView 
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/paid_by" 
+    	    />
+    	<Spinner
+    	    android:id="@+id/paidBySpinner"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:prompt="@string/paid_by_user_prompt"
+    	    />
+    	<Button 
+    	   	android:id="@+id/addFriend"
+   			android:layout_width="wrap_content"
+    	 	android:layout_height="wrap_content"
+   		    android:text="@string/add_friend"
+    	   />
+    	<EditText
+    	    android:id="@+id/amount"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:hint="@string/amount"
+    	    />
+    </LinearLayout>
+    
+    <LinearLayout
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:prompt="@string/paid_by_user_prompt"
-        />
-    <Button 
-       	android:id="@+id/addFriend"
-   		android:layout_width="wrap_content"
-     	android:layout_height="wrap_content"
-   	    android:text="@string/add_friend"
-       />
-    <EditText
-        android:id="@+id/amount"
+    	android:orientation="horizontal" >
+    	<TextView
+     		android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/date"
+        	/>
+    	<TextView
+    	    android:id="@+id/dateDisplay"
+        	android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+        	android:text=""/>
+    	<Button 
+    	    android:id="@+id/pickDate"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/pick_date"/>
+    </LinearLayout>
+    
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/amount"
-        />
+    	android:layout_height="wrap_content"
+   		android:orientation="vertical" >
+  		<TextView
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+        	android:text="@string/for_members"
+      	 	 />
     
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/date"
-        />
+   			<!-- TODO: ajouter case à cocher ("tous") et boutons radio avec participants 
+  			et case "proportion" avec spinner pour la proportion (pourcentage ou montant) -->
     
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/for_members"
-        />
-    
-    <!-- TODO: ajouter case à cocher ("tous") et boutons radio avec participants 
-    et case "proportion" avec spinner pour la proportion (pourcentage ou montant) -->
-    
-    <Button
-       	android:id="@+id/addNewExpense"
-   		android:layout_width="wrap_content"
-     	android:layout_height="wrap_content"
-   	    android:text="@string/add_expense"        
-        />
-    <Button
-       	android:id="@+id/cancelAddExpense"
-   		android:layout_width="wrap_content"
-     	android:layout_height="wrap_content"
-   	    android:text="@string/cancel"        
-        /> 
-    
+    	<Button
+       		android:id="@+id/addNewExpense"
+   			android:layout_width="wrap_content"
+     		android:layout_height="wrap_content"
+   	    	android:text="@string/add_expense"        
+        	/>
+    	<Button
+    	   	android:id="@+id/cancelAddExpense"
+   			android:layout_width="wrap_content"
+    	 	android:layout_height="wrap_content"
+   		    android:text="@string/cancel"        
+    	    /> 
+    </LinearLayout>
     
 </LinearLayout>

@@ -22,6 +22,9 @@
             android:name=".AddGroupActivity">
         </activity>
         <activity
+            android:name=".AllGroupsActivity">
+        </activity>
+        <activity
             android:name=".GroupActivity">
         </activity>
         <activity

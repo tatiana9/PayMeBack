@@ -17,7 +17,7 @@ public class GroupActivity  extends Activity {
         final Button addExpenseButton = (Button) findViewById(R.id.addExpense);
         final Button returnButton = (Button) findViewById(R.id.goBack);
         final Button balanceButton = (Button) findViewById(R.id.balance);
-
+        
         addExpenseButton.setOnClickListener(new View.OnClickListener() {		
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -29,7 +29,7 @@ public class GroupActivity  extends Activity {
         returnButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(v.getContext(), AddGroupActivity.class);
+				Intent intent = new Intent(v.getContext(), AllGroupsActivity.class);
 				startActivity(intent);
 			}
 		});

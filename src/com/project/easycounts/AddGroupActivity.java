@@ -1,14 +1,29 @@
 package com.project.easycounts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
 
 public class AddGroupActivity extends Activity {
     /** Called when the activity is first created. */
-
+	private List<Member> members = null;
+	private List<String> names = null;
+	private ListView list;
+	private ArrayAdapter<String> adapter;
+	private Group newGroup;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,7 +31,56 @@ public class AddGroupActivity extends Activity {
         
         final Button cancelButton = (Button) findViewById(R.id.cancelCreateGroup);
         final Button applyButton = (Button) findViewById(R.id.applyCreateGroup);
+        final ImageButton addMemberButton = (ImageButton) findViewById(R.id.addMember);
 
+        //instantiate a new group
+        newGroup = new Group();
+        
+                
+        list = (ListView) findViewById(R.id.listMembers);
+        members = new ArrayList<Member>();
+        names = new ArrayList<String>();
+        
+        
+        //TEST ajout d'un membre artificiellement
+        //int size = HomeScreenActivity.groupContainer.allGroups.size();
+        //HomeScreenActivity.groupContainer.allGroups.get(size-1).addMember("tatiana");
+        //HomeScreenActivity.groupContainer.allGroups.get(size-1).addMember("daniel");
+
+        updateListView();
+        
+        addMemberButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+				builder.setTitle("Member's name");
+				builder.setCancelable(true);
+				final EditText input = new EditText(v.getContext());
+				builder.setView(input);
+				builder.setPositiveButton("Add", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int id) {
+						// TODO Auto-generated method stub
+						Editable value = input.getText();
+						String name = value.toString();
+						
+						if (name!=null){
+							newGroup.addMember(name);
+							updateListView();
+						}
+					}
+				});
+				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int id){
+						dialog.cancel();
+					}
+				});
+				
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+		});
+        
         cancelButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -28,10 +92,65 @@ public class AddGroupActivity extends Activity {
         applyButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(v.getContext(), GroupActivity.class);
-				startActivity(intent);
+				
+				//get the groupName
+				EditText editText = (EditText) findViewById(R.id.groupName);
+				String groupName = editText.getText().toString();
+				
+				System.out.println("groupName : "+groupName);
+				
+				//first verify group name is not empty
+				if (groupName.length() >= 1){
+					newGroup.setName(groupName);
+				
+					//verify that members have been entered
+					if (!newGroup.getMembers().isEmpty()){
+						//add the group to GroupContainer
+						GroupContainer.getInstance().addGroupToContainer(newGroup);
+				
+						Intent intent = new Intent(v.getContext(), GroupActivity.class);
+						startActivity(intent);
+					}
+					else{
+						//TODO launch alert no members!
+					}
+				}
+				else {
+					//TODO launch alert no group name!
+				}
 			}
-		});
-        
+		});  
+    }
+    
+    
+    public void updateNames(){
+    	List<String> n = new ArrayList<String>();
+    	for (Member m : members){
+    		if (m != null){
+   				n.add(m.getName());
+   			}
+   		}
+       	names = n;
+    }
+    
+    public void updateListView(){
+    	members = newGroup.getMembers();
+    	if (members != null){
+    		updateNames();
+	    	adapter = new ArrayAdapter<String>(this, R.layout.list_member_item, names);
+	    	list.setAdapter(adapter);
+			list.setTextFilterEnabled(true);
+    	}
+    }
+    
+    public void printAllGroupNames(){
+		int size = GroupContainer.getInstance().getSize();
+		List<Group> listGroups = GroupContainer.getInstance().getAllGroups();
+    	if (size>0){
+    		for (Group g : listGroups){
+    			System.out.println(g.getName());
+    		}
+    	}
+    	System.out.println(size);
     }
 }

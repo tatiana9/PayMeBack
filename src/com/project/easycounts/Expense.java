@@ -1,13 +1,19 @@
 package com.project.easycounts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Expense {
 	private String name;
-	private Member payer;
-	private int amount;
+	private String payer;
+	private double amount;
 	private List<Member> participants;
 	private List<Integer> shares;
+	
+	public Expense(){
+		participants = new ArrayList<Member>();
+		shares = new ArrayList<Integer>();
+	}
 	
 	public String getName(){
 		return name;
@@ -15,18 +21,27 @@ public class Expense {
 	public void setName(String name){
 		this.name = name;
 	}
-	
+	/*
 	public Member getPayer(){
 		return payer;
 	}
 	public void setPayer(Member payer){
 		this.payer = payer;
 	}
+	*/
+	public String getPayer(){
+		return payer;
+	}
+	public void setPayer(String payer){
+		this.payer = payer;
+	}
 	
-	public int getAmount(){
+	
+	
+	public double getAmount(){
 		return amount;
 	}
-	public void setAmount(int amount){
+	public void setAmount(double amount){
 		this.amount = amount;
 	}
 	

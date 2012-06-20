@@ -7,7 +7,7 @@
     <string name="apply">Apply</string>
     
 <!-- HomeScreenActivity -->
-    <string name="welcome">Welcome to EasyCounts!</string>
+    <string name="welcome">Welcome to PayMeBack :) !</string>
     <string name="app_name">PayMeBack</string>
     <string name="add_group">Add a group</string>
     <string name="load_group">Load a group</string> 
@@ -26,8 +26,9 @@
     <string name="expense_name">Name of the expense</string>
     <string name="amount">Amount</string>
     <string name="add_friend">Add a Friend</string>        
-    <string name="paid_by_user_prompt">Choose the group member who paid for this expense</string>        
-    <string name="date">Date</string>
+    <string name="paid_by_user_prompt">Who paid for this?</string>        
+    <string name="date">Date:</string>
+    <string name="pick_date">Set date</string>
     <string name="for_members">For:</string>
     
 <!-- BalanceActivity -->   
