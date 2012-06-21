@@ -1,21 +1,36 @@
 package com.project.easycounts;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class NewExpenseActivity extends Activity {
     /** Called when the activity is first created. */
-	List<String> membersNames;
-	Expense newExpense;
+	private List<String> membersNames;
+	private Expense newExpense;
+	
+	//class variables for date picker
+	private TextView mDateDisplay;
+	private Button mPickDate;
+	private int mYear;
+	private int mMonth;
+	private int mDay;
+	private DatePickerDialog.OnDateSetListener mDateSetListener;
+	static final int DATE_DIALOG_ID = 0;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,17 +49,44 @@ public class NewExpenseActivity extends Activity {
         final Button cancelButton = (Button) findViewById(R.id.cancelAddExpense);
         final EditText editTextName = (EditText) findViewById(R.id.expenseName);
         final EditText editTextAmount = (EditText) findViewById(R.id.amount);
-
+        mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
+        mPickDate = (Button) findViewById(R.id.pickDate);
         
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, membersNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         //spinner.setOnItemSelectedListener(new MyOnSpinnerItemSelectedListener());
         
+        mPickDate.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				showDialog(DATE_DIALOG_ID);
+			}
+		});
+        
+        //get current date
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+        
+        //display the current date
+        updateDateDisplay();
+        
+        //the callback received when the user "sets" the date in the dialog
+        mDateSetListener = new DatePickerDialog.OnDateSetListener(){
+
+			public void onDateSet(DatePicker view, int year, int monthOfYear,
+					int dayOfMonth) {
+				mYear = year;
+				mMonth = monthOfYear;
+				mDay = dayOfMonth;
+				updateDateDisplay();
+			}
+        	
+        };
         
         addExpenseButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				
 				//get the expense's name
 				String expenseName = editTextName.getText().toString();
@@ -61,7 +103,7 @@ public class NewExpenseActivity extends Activity {
 							amount = Double.parseDouble(amountChar);
 						}
 					   	catch (NumberFormatException ex){
-					   		//TODO toast
+					   		Toast.makeText(v.getContext(), "The amount must be a number", Toast.LENGTH_LONG).show();
 				    		return;
 				    	}
 						newExpense.setAmount(amount);
@@ -72,7 +114,7 @@ public class NewExpenseActivity extends Activity {
 							payer = spinner.getSelectedItem().toString();
 						}		
 						else {
-							//there at least one member: alert if no members entered when group is created
+							//there's at least one member: alert if no members entered when group is created
 							payer = membersNames.get(0);
 						}
 						newExpense.setPayer(payer);
@@ -93,14 +135,13 @@ public class NewExpenseActivity extends Activity {
 
 				}
 				else {
-					//TODO toast no expense name
+			   		Toast.makeText(v.getContext(), "Please enter a name for your expense", Toast.LENGTH_LONG).show();
 				}
 			}
 		});
         
         cancelButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(v.getContext(), GroupActivity.class);
 				startActivity(intent);
 			}
@@ -108,7 +149,26 @@ public class NewExpenseActivity extends Activity {
 		
     }
     
-    public void getMembersNames(){
+    private void updateDateDisplay() {
+		mDateDisplay.setText(
+			new StringBuilder()
+				//month is 0 based so add 1!
+				.append(mMonth + 1).append("-")
+				.append(mDay).append("-")
+				.append(mYear).append(" "));
+	}
+    
+    @Override
+    protected Dialog onCreateDialog(int id){
+    	switch (id) {
+    	case DATE_DIALOG_ID:
+    		return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, mDay);
+    	}
+    	return null;
+    }
+    
+
+	private void getMembersNames(){
     	List<String> n = new ArrayList<String>();
     	//TODO : change to method using "cursor" to be in the right group (especially when parent Activity is AllGroupsActivity)
     	Group g = GroupContainer.getInstance().getLastGroup();
@@ -121,25 +181,4 @@ public class NewExpenseActivity extends Activity {
     	membersNames = n;
     }
     
-    /**
-     * verifies that a string is actually an integer AND is not empty
-     */
-    public boolean isDouble(String s){
-    	if (s.length() < 1) return false;
-    	
-    	try {
-    		Double.parseDouble(s);
-    	}
-    	catch (NumberFormatException ex){
-    		return false;
-    	}
-    	
-    	char [] array = s.toCharArray();
-    	for (char c : array){
-    		if (! java.lang.Character.isDigit(c)){
-    			return false;
-    		}
-    	}
-    	return true;
-    }
 }

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class AddGroupActivity extends Activity {
     /** Called when the activity is first created. */
@@ -51,7 +52,6 @@ public class AddGroupActivity extends Activity {
         
         addMemberButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				
 				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 				builder.setTitle("Member's name");
@@ -60,7 +60,6 @@ public class AddGroupActivity extends Activity {
 				builder.setView(input);
 				builder.setPositiveButton("Add", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int id) {
-						// TODO Auto-generated method stub
 						Editable value = input.getText();
 						String name = value.toString();
 						
@@ -83,7 +82,6 @@ public class AddGroupActivity extends Activity {
         
         cancelButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(v.getContext(), HomeScreenActivity.class);
 				startActivity(intent);
 			}
@@ -91,7 +89,6 @@ public class AddGroupActivity extends Activity {
         
         applyButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				
 				//get the groupName
 				EditText editText = (EditText) findViewById(R.id.groupName);
@@ -112,11 +109,11 @@ public class AddGroupActivity extends Activity {
 						startActivity(intent);
 					}
 					else{
-						//TODO launch alert no members!
+				   		Toast.makeText(v.getContext(), "No member registered", Toast.LENGTH_LONG).show();
 					}
 				}
 				else {
-					//TODO launch alert no group name!
+			   		Toast.makeText(v.getContext(), "Please enter a group name", Toast.LENGTH_LONG).show();
 				}
 			}
 		});  

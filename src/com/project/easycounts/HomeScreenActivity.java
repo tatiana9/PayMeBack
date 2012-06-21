@@ -22,7 +22,6 @@ public class HomeScreenActivity extends Activity{
         
         addGroupButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(v.getContext(), AddGroupActivity.class);
 				startActivity(intent);
 			}
@@ -30,7 +29,6 @@ public class HomeScreenActivity extends Activity{
         
         loadGroupButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(v.getContext(), AllGroupsActivity.class);
 				startActivity(intent);
 			}

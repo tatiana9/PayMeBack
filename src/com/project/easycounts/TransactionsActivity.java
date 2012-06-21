@@ -18,7 +18,6 @@ public class TransactionsActivity extends Activity{
         returnButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(v.getContext(), BalanceActivity.class);
 				startActivity(intent);
 			}

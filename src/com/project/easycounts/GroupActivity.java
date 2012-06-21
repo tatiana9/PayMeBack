@@ -20,7 +20,6 @@ public class GroupActivity  extends Activity {
         
         addExpenseButton.setOnClickListener(new View.OnClickListener() {		
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(v.getContext(), NewExpenseActivity.class);
 				startActivity(intent);
 			}
@@ -28,7 +27,6 @@ public class GroupActivity  extends Activity {
         
         returnButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(v.getContext(), AllGroupsActivity.class);
 				startActivity(intent);
 			}
@@ -36,7 +34,6 @@ public class GroupActivity  extends Activity {
         
         balanceButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(v.getContext(), BalanceActivity.class);
 				startActivity(intent);
 			}
