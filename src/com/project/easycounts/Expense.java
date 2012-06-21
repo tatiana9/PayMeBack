@@ -79,6 +79,9 @@ public class Expense {
 	public void setParticipants(List<Member> participants){
 		this.participants = participants;
 	}
+	public void addParticipant(String name){
+		this.participants.add(new Member(name));
+	}
 	
 	public List<Integer> getShares(){
 		return shares;

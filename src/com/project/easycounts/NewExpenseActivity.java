@@ -105,42 +105,53 @@ public class NewExpenseActivity extends Activity {
 					newExpense.setName(expenseName);
 					double amount = 0;
 
-						try{
-							amount = Double.parseDouble(amountChar);
-						}
-					   	catch (NumberFormatException ex){
-					   		Toast.makeText(v.getContext(), "The amount must be a number", Toast.LENGTH_LONG).show();
-				    		return;
-				    	}
-						newExpense.setAmount(amount);
+					try{
+						amount = Double.parseDouble(amountChar);
+					}
+					catch (NumberFormatException ex){
+					  	Toast.makeText(v.getContext(), "The amount must be a number", Toast.LENGTH_LONG).show();
+					  	return;
+				    }
+					newExpense.setAmount(amount);
 						
-						//get the payer from spinner
-						String payer;
-						if (spinner.getSelectedItem() != null){
-							payer = spinner.getSelectedItem().toString();
-						}		
-						else {
-							//there's at least one member: alert if no members entered when group is created
-							payer = membersNames.get(0);
+					//get the payer from spinner
+					String payer;
+					if (spinner.getSelectedItem() != null){
+						payer = spinner.getSelectedItem().toString();
+					}		
+					else {
+						//there's at least one member: alert if no members entered when group is created
+						payer = membersNames.get(0);
+					}
+					newExpense.setPayer(payer);
+				
+					//TODO get the date
+					newExpense.setDate(mYear, mMonth, mDay);
+				
+					//TODO get participants
+					int count = participantsListView.getAdapter().getCount();
+					int participantsCount = 0;
+					for (int i=0; i<count; i++){
+						if (participantsListView.isItemChecked(i)){
+							newExpense.addParticipant(participantsListView.getItemAtPosition(i).toString());
+							participantsCount ++;
 						}
-						newExpense.setPayer(payer);
-				
-						//TODO get the date
-						newExpense.setDate(mYear, mMonth, mDay);
-				
-						//TODO get participants
-						int count = participantsListView.getAdapter().getCount();
-				
+					}
+					
+					if (participantsCount > 0){
 						//TODO get shares
-								
+							
 						//add the expense to the current group!
 						//TODO with cursor position
 						GroupContainer.getInstance().getLastGroup().addExpense(newExpense);
-				
+					
 						Intent intent = new Intent(v.getContext(), GroupActivity.class);
 						startActivity(intent);
-					
-
+					}
+				
+					else {
+						Toast.makeText(v.getContext(), "Please select at least one participant", Toast.LENGTH_LONG).show();
+					}
 				}
 				else {
 			   		Toast.makeText(v.getContext(), "Please enter a name for your expense", Toast.LENGTH_LONG).show();
