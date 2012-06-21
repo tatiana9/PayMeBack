@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ public class NewExpenseActivity extends Activity {
     /** Called when the activity is first created. */
 	private List<String> membersNames;
 	private Expense newExpense;
+	private ListView participantsListView;
 	
 	//class variables for date picker
 	private TextView mDateDisplay;
@@ -85,6 +87,10 @@ public class NewExpenseActivity extends Activity {
         	
         };
         
+        //ListView
+        participantsListView = (ListView) findViewById(R.id.participantsList);
+        updateListView();
+        
         addExpenseButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
 				
@@ -119,9 +125,11 @@ public class NewExpenseActivity extends Activity {
 						}
 						newExpense.setPayer(payer);
 				
-						//TODO get the date?			
+						//TODO get the date
+						newExpense.setDate(mYear, mMonth, mDay);
 				
 						//TODO get participants
+						int count = participantsListView.getAdapter().getCount();
 				
 						//TODO get shares
 								
@@ -167,6 +175,15 @@ public class NewExpenseActivity extends Activity {
     	return null;
     }
     
+    
+    private void updateListView(){
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, membersNames);
+	    //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_member_item, membersNames);
+    	participantsListView.setAdapter(adapter);
+	    //participantsListView.setTextFilterEnabled(true);
+	    participantsListView.setItemsCanFocus(false);
+	    participantsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+    }
 
 	private void getMembersNames(){
     	List<String> n = new ArrayList<String>();

@@ -27,9 +27,9 @@
     <string name="amount">Amount</string>
     <string name="add_friend">Add a Friend</string>        
     <string name="paid_by_user_prompt">Who paid for this?</string>        
-    <string name="date">Date:</string>
+    <string name="date">Date: </string>
     <string name="pick_date">Set date</string>
-    <string name="for_members">For:</string>
+    <string name="participants">Participants:</string>
     
 <!-- BalanceActivity -->   
     <string name="global_balance">Global Balance:</string>

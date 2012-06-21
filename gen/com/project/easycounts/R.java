@@ -21,11 +21,11 @@ public final class R {
         public static final int addFriend=0x7f05000e;
         public static final int addGroup=0x7f05000a;
         public static final int addMember=0x7f050001;
-        public static final int addNewExpense=0x7f050012;
+        public static final int addNewExpense=0x7f050013;
         public static final int amount=0x7f05000f;
         public static final int applyCreateGroup=0x7f050003;
         public static final int balance=0x7f050009;
-        public static final int cancelAddExpense=0x7f050013;
+        public static final int cancelAddExpense=0x7f050014;
         public static final int cancelCreateGroup=0x7f050004;
         public static final int dateDisplay=0x7f050010;
         public static final int expenseName=0x7f05000c;
@@ -35,6 +35,7 @@ public final class R {
         public static final int listMembers=0x7f050002;
         public static final int loadGroup=0x7f05000b;
         public static final int paidBySpinner=0x7f05000d;
+        public static final int participantsList=0x7f050012;
         public static final int pickDate=0x7f050011;
         public static final int transactions=0x7f050007;
     }
@@ -65,7 +66,6 @@ public final class R {
         public static final int date=0x7f040011;
         public static final int expenditures_balance=0x7f040015;
         public static final int expense_name=0x7f04000d;
-        public static final int for_members=0x7f040013;
         /**  BalanceActivity 
          */
         public static final int global_balance=0x7f040014;
@@ -79,6 +79,7 @@ public final class R {
          */
         public static final int paid_by=0x7f04000c;
         public static final int paid_by_user_prompt=0x7f040010;
+        public static final int participants=0x7f040013;
         public static final int pick_date=0x7f040012;
         public static final int transactions=0x7f040016;
         /**  HomeScreenActivity 

@@ -68,12 +68,23 @@
   		<TextView
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
-        	android:text="@string/for_members"
+        	android:text="@string/participants"
       	 	 />
     
    			<!-- TODO: ajouter case à cocher ("tous") et boutons radio avec participants 
   			et case "proportion" avec spinner pour la proportion (pourcentage ou montant) -->
+    	<ListView
+    	    android:id="@+id/participantsList"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	/>
+  			
+    </LinearLayout>
     
+    <LinearLayout
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+   		android:orientation="vertical" >
     	<Button
        		android:id="@+id/addNewExpense"
    			android:layout_width="wrap_content"
