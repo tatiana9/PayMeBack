@@ -85,6 +85,9 @@ public final class R {
         public static final int participants=0x7f040013;
         public static final int pick_date=0x7f040012;
         public static final int transactions=0x7f040016;
+        /**  TransactionsActivity 
+         */
+        public static final int transactionsSlogan=0x7f040017;
         /**  HomeScreenActivity 
          */
         public static final int welcome=0x7f040003;

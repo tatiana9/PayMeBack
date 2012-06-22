@@ -36,4 +36,8 @@
     <string name="expenditures_balance">Expenditures Balance:</string>
     <string name="transactions">Transactions</string>
     
+    
+<!-- TransactionsActivity -->
+    <string name="transactionsSlogan">How could you get your money back?</string>
+    
 </resources>

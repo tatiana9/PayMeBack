@@ -50,12 +50,13 @@ public class BalanceActivity extends Activity {
         transactionsButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), TransactionsActivity.class);
+				intent.putExtra("amounts", realTotal);
 				startActivity(intent);
 			}
 		});
     }
     
-    private double[] getGlobalBalance(){
+    public double[] getGlobalBalance(){
     	total = new double[membersNames.size()];
     	for (Expense e : group.getExpenses()){
     		for (int i=0; i<membersNames.size(); i++){
@@ -65,20 +66,20 @@ public class BalanceActivity extends Activity {
     	return total;
     }
     
-    private double[] getExpendituresBalance(){
+    public double[] getExpendituresBalance(){
     	Group group = GroupContainer.getInstance().getCurrentGroup();
     	realTotal = new double[membersNames.size()];
     	for (int i=0; i<realTotal.length; i++){
-        	realTotal[i] = total[i];
+        	realTotal[i] = -total[i];
     	}
     	for (Expense e : group.getExpenses()){
     		int p = group.getMemberPosition(e.getPayer());
-    		realTotal[p] -= e.getAmount();
+    		realTotal[p] += e.getAmount();
     	}
     	return realTotal;
     }
     
-    public void setGlobalTextView(){
+    private void setGlobalTextView(){
     	String s = "";
     	for (int i=0; i<total.length; i++){
     		System.out.println(membersNames.get(i)+" pays "+total[i]);
@@ -87,15 +88,15 @@ public class BalanceActivity extends Activity {
     	globalBalance.setText(s);
     }
     
-    public void setExpendituresTextView(){
+    private void setExpendituresTextView(){
     	String s = "";
     	for (int i=0; i<total.length; i++){
-    		if (realTotal[i] <= 0){
-    			double x = - realTotal[i];
-        		s += membersNames.get(i) + " lent " + x + " euros" + "\n";
+    		if (realTotal[i] > 0){
+        		s += membersNames.get(i) + " lent " + realTotal[i] + " euros" + "\n";
     		}
     		else{
-        		s += membersNames.get(i) + " owes " + realTotal[i] + " euros" + "\n";
+    			double x = - realTotal[i];
+        		s += membersNames.get(i) + " owes " + x + " euros" + "\n";
     		}
     	}
     	expendituresBalance.setText(s);

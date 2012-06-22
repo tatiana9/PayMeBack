@@ -140,9 +140,17 @@ public class NewExpenseActivity extends Activity {
 					
 					if (participantsCount > 0){
 						//TODO get custom shares
+						double pseudoTotal = 0;
 						for (int i = 0; i<membersNames.size(); i++){
 							if (newExpense.getParticipantsNames().contains(membersNames.get(i))){
-								double s = (newExpense.getAmount())/(double)participantsCount;
+								double s = 0;
+								if (i == membersNames.size()-1){
+									s = newExpense.getAmount()-pseudoTotal;
+								}
+								else {
+									s = getRound((newExpense.getAmount())/(double)participantsCount);
+									pseudoTotal += s;
+								}
 								newExpense.addShare(s);
 							}
 							else {
@@ -210,4 +218,9 @@ public class NewExpenseActivity extends Activity {
     	membersNames = g.getMembersNames();
     }
     
+	private double getRound(double x){
+		//arrondir ˆ 2 chiffres aprs la virgule)
+		double arr = Math.round(x*100)/(double)100;
+		return arr;
+	}
 }
