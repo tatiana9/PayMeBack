@@ -41,6 +41,9 @@ public final class GroupContainer {
 	public void setCursor(int i){
 		cursor = i;
 	}
+	public void setCursorAtEnd(){
+		cursor = allGroups.size()-1;
+	}
 	
 	public void addGroupToContainer(Group newGroup){
 		allGroups.add(newGroup);

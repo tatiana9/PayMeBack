@@ -8,6 +8,24 @@
         android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
    		android:orientation="vertical" >
+    	<Button
+       		android:id="@+id/addNewExpense"
+   			android:layout_width="wrap_content"
+     		android:layout_height="wrap_content"
+   	    	android:text="@string/add_expense"        
+        	/>
+    	<Button
+    	   	android:id="@+id/cancelAddExpense"
+   			android:layout_width="wrap_content"
+    	 	android:layout_height="wrap_content"
+   		    android:text="@string/cancel"        
+    	    /> 
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+   		android:orientation="vertical" >
     
     	<EditText
     	    android:id="@+id/expenseName"
@@ -81,22 +99,6 @@
   			
     </LinearLayout>
     
-    <LinearLayout
-        android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-   		android:orientation="vertical" >
-    	<Button
-       		android:id="@+id/addNewExpense"
-   			android:layout_width="wrap_content"
-     		android:layout_height="wrap_content"
-   	    	android:text="@string/add_expense"        
-        	/>
-    	<Button
-    	   	android:id="@+id/cancelAddExpense"
-   			android:layout_width="wrap_content"
-    	 	android:layout_height="wrap_content"
-   		    android:text="@string/cancel"        
-    	    /> 
-    </LinearLayout>
+
     
 </LinearLayout>

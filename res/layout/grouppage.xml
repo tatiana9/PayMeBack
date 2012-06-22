@@ -4,25 +4,43 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
     
-	<Button
-        android:id="@+id/addExpense"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_expense" 
-        />
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical">
+		<Button
+        	android:id="@+id/addExpense"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:text="@string/add_expense" 
+        	/>
 	
-	<Button 
-        android:id="@+id/balance"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/balance" 
-	    />
+		<Button 
+    	    android:id="@+id/balance"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/balance" 
+		    />
 	
-	<Button 
-	    android:id="@+id/goBack"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/go_back" 
-	    />
+		<Button 
+		    android:id="@+id/goBack"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/go_back" 
+		    />
+	</LinearLayout>
+	
+	<LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical">
+    
+    	<ListView
+    	    android:id="@+id/listExpenses"
+        	android:layout_width="wrap_content"
+        	android:layout_height="fill_parent"
+        	/>
+    	
+    </LinearLayout>
     
 </LinearLayout>

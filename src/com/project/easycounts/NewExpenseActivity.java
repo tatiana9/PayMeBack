@@ -125,10 +125,10 @@ public class NewExpenseActivity extends Activity {
 					}
 					newExpense.setPayer(payer);
 				
-					//TODO get the date
+					//get the date
 					newExpense.setDate(mYear, mMonth, mDay);
 				
-					//TODO get participants
+					//get participants
 					int count = participantsListView.getAdapter().getCount();
 					int participantsCount = 0;
 					for (int i=0; i<count; i++){
@@ -143,7 +143,7 @@ public class NewExpenseActivity extends Activity {
 							
 						//add the expense to the current group!
 						//TODO with cursor position
-						GroupContainer.getInstance().getLastGroup().addExpense(newExpense);
+						GroupContainer.getInstance().getCurrentGroup().addExpense(newExpense);
 					
 						Intent intent = new Intent(v.getContext(), GroupActivity.class);
 						startActivity(intent);
@@ -199,7 +199,7 @@ public class NewExpenseActivity extends Activity {
 	private void getMembersNames(){
     	List<String> n = new ArrayList<String>();
     	//TODO : change to method using "cursor" to be in the right group (especially when parent Activity is AllGroupsActivity)
-    	Group g = GroupContainer.getInstance().getLastGroup();
+    	Group g = GroupContainer.getInstance().getCurrentGroup();
     	
     	for (Member m : g.getMembers()){
     		if (m != null){
