@@ -11,11 +11,13 @@ public class Expense {
 	private int month;
 	private int day;
 	private List<Member> participants;
-	private List<Integer> shares;
+	//shares is the list of the amounts the members are supposed to pay for the expense (0 if they are not participants)
+	//shares.size() = members.size() !!
+	private List<Double> shares;
 	
 	public Expense(){
 		participants = new ArrayList<Member>();
-		shares = new ArrayList<Integer>();
+		shares = new ArrayList<Double>();
 	}
 	
 	public String getName(){
@@ -38,8 +40,6 @@ public class Expense {
 	public void setPayer(String payer){
 		this.payer = payer;
 	}
-	
-	
 	
 	public double getAmount(){
 		return amount;
@@ -76,6 +76,13 @@ public class Expense {
 	public List<Member> getParticipants(){
 		return participants;
 	}
+	public List<String> getParticipantsNames(){
+		List<String> names = new ArrayList<String>();
+		for (Member m : participants){
+			names.add(m.getName());
+		}
+		return names;
+	}
 	public void setParticipants(List<Member> participants){
 		this.participants = participants;
 	}
@@ -83,11 +90,15 @@ public class Expense {
 		this.participants.add(new Member(name));
 	}
 	
-	public List<Integer> getShares(){
+	public List<Double> getShares(){
 		return shares;
 	}
-	public void setShares(List<Integer> shares){
+	public void setShares(List<Double> shares){
 		this.shares = shares;
 	}
+	public void addShare(double s){
+		shares.add(s);
+	}
+
 	
 }

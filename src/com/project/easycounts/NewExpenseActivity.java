@@ -139,10 +139,18 @@ public class NewExpenseActivity extends Activity {
 					}
 					
 					if (participantsCount > 0){
-						//TODO get shares
+						//TODO get custom shares
+						for (int i = 0; i<membersNames.size(); i++){
+							if (newExpense.getParticipantsNames().contains(membersNames.get(i))){
+								double s = (newExpense.getAmount())/(double)participantsCount;
+								newExpense.addShare(s);
+							}
+							else {
+								newExpense.addShare(0);
+							}
+						}
 							
 						//add the expense to the current group!
-						//TODO with cursor position
 						GroupContainer.getInstance().getCurrentGroup().addExpense(newExpense);
 					
 						Intent intent = new Intent(v.getContext(), GroupActivity.class);
@@ -197,16 +205,9 @@ public class NewExpenseActivity extends Activity {
     }
 
 	private void getMembersNames(){
-    	List<String> n = new ArrayList<String>();
     	//TODO : change to method using "cursor" to be in the right group (especially when parent Activity is AllGroupsActivity)
     	Group g = GroupContainer.getInstance().getCurrentGroup();
-    	
-    	for (Member m : g.getMembers()){
-    		if (m != null){
-    			n.add(m.getName());
-    		}
-    	}
-    	membersNames = n;
+    	membersNames = g.getMembersNames();
     }
     
 }

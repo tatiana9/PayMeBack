@@ -41,7 +41,17 @@ public class Group {
 	public void addMember(Member member){
 		this.members.add(member);
 	}
-	
+	public List<String> getMembersNames(){
+		List<String> names = new ArrayList<String>();
+		for (Member m : members){
+			names.add(m.getName());
+		}
+		return names;
+	}
+	public int getMemberPosition(String name){
+		List<String> names = getMembersNames();
+		return names.indexOf(name);
+	}
 	
 	public void addExpense(Expense newExpense){
 		this.expenses.add(newExpense);
