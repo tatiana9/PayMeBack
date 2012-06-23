@@ -5,10 +5,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +37,8 @@ public class NewExpenseActivity extends Activity {
 	private DatePickerDialog.OnDateSetListener mDateSetListener;
 	static final int DATE_DIALOG_ID = 0;
 	
+	private Spinner spinner;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,26 +49,58 @@ public class NewExpenseActivity extends Activity {
         
         //instantiate and get list of members' names
         membersNames = new ArrayList<String>();
-        getMembersNames();
+        updateMembersNames();
         
-        final Spinner spinner = (Spinner) findViewById(R.id.paidBySpinner);
+        spinner = (Spinner) findViewById(R.id.paidBySpinner);
         final Button addExpenseButton = (Button) findViewById(R.id.addNewExpense);
         final Button cancelButton = (Button) findViewById(R.id.cancelAddExpense);
         final EditText editTextName = (EditText) findViewById(R.id.expenseName);
         final EditText editTextAmount = (EditText) findViewById(R.id.amount);
+        final Button addFriendButton = (Button) findViewById(R.id.addFriend);
         mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
         mPickDate = (Button) findViewById(R.id.pickDate);
         
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, membersNames);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
         //spinner.setOnItemSelectedListener(new MyOnSpinnerItemSelectedListener());
+        updateSpinner();
+        
+        
+        addFriendButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+				builder.setTitle("Enter new member's name");
+				builder.setCancelable(true);
+				final EditText input = new EditText(v.getContext());
+				builder.setView(input);
+				builder.setPositiveButton("Add", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int id) {
+						Editable value = input.getText();
+						String name = value.toString();
+						
+						if (name!=null){
+							GroupContainer.getInstance().getCurrentGroup().addMember(name);
+							updateSpinner();
+							updateListView();
+						}
+					}
+				});
+				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int id){
+						dialog.cancel();
+					}
+				});
+				
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+		});
+        
         
         mPickDate.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				showDialog(DATE_DIALOG_ID);
 			}
 		});
+        
         
         //get current date
         final Calendar c = Calendar.getInstance();
@@ -204,6 +241,7 @@ public class NewExpenseActivity extends Activity {
     
     
     private void updateListView(){
+    	updateMembersNames();
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, membersNames);
 	    //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_member_item, membersNames);
     	participantsListView.setAdapter(adapter);
@@ -212,11 +250,18 @@ public class NewExpenseActivity extends Activity {
 	    participantsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 
-	private void getMembersNames(){
+	private void updateMembersNames(){
     	//TODO : change to method using "cursor" to be in the right group (especially when parent Activity is AllGroupsActivity)
     	Group g = GroupContainer.getInstance().getCurrentGroup();
     	membersNames = g.getMembersNames();
     }
+	
+	private void updateSpinner(){
+		updateMembersNames();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, membersNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+	}
     
 	private double getRound(double x){
 		//arrondir à 2 chiffres après la virgule)
