@@ -42,7 +42,6 @@ public class AllGroupsActivity extends Activity {
 					long id) {
 				//String selectedItem = ((TextView) view).getText().toString();
 				GroupContainer.getInstance().setCursor(position);
-				System.out.println("position : "+position);
 				Intent intent = new Intent(getApplicationContext(), GroupActivity.class);
 				startActivity(intent);
 			}
