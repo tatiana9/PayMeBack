@@ -12,12 +12,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddGroupActivity extends Activity {
@@ -62,10 +64,17 @@ public class AddGroupActivity extends Activity {
 						Editable value = input.getText();
 						String name = value.toString();
 						
-						if (name!=null){
-							newGroup.addMember(name);
-							updateListView();
+						if ((name!=null)){
+							if (!newGroup.getMembersNames().contains(name)){
+								newGroup.addMember(name);
+								updateListView();
+							}
+							else {
+								Toast.makeText(getApplicationContext(), "This member already exists", Toast.LENGTH_LONG).show();
+							}
 						}
+							
+						
 					}
 				});
 				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -78,6 +87,47 @@ public class AddGroupActivity extends Activity {
 				alert.show();
 			}
 		});
+        
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+				builder.setTitle("Edit member's name");
+				builder.setCancelable(true);
+				final EditText input = new EditText(view.getContext());
+				final int pos = position;
+				String n = ((TextView)view).getText().toString();
+				input.setText(n);
+				builder.setView(input);
+				builder.setPositiveButton("Edit", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int id) {
+						Editable value = input.getText();
+						String name = value.toString();
+						
+						if ((name!=null)){
+							if (!newGroup.getMembersNames().contains(name)){
+								newGroup.getMembers().set(pos, new Member(name));
+								updateListView();
+							}
+							else {
+								Toast.makeText(getApplicationContext(), "This member already exists", Toast.LENGTH_LONG).show();
+							}
+						}
+							
+						
+					}
+				});
+				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int id){
+						dialog.cancel();
+					}
+				});
+				
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+	    	
+	    });
         
         cancelButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
@@ -95,6 +145,10 @@ public class AddGroupActivity extends Activity {
 								
 				//first verify group name is not empty
 				if (groupName.length() >= 1){
+					if (GroupContainer.getInstance().getGroupsNames().contains(groupName)){
+						Toast.makeText(v.getContext(), "Group name not available", Toast.LENGTH_LONG).show();
+						return;
+					}
 					newGroup.setName(groupName);
 				
 					//verify that members have been entered

@@ -99,9 +99,14 @@ public class NewExpenseActivity extends Activity {
 						String name = value.toString();
 						
 						if (name!=null){
+							if (!membersNames.contains(name)){
 							GroupContainer.getInstance().getCurrentGroup().addMember(name);
 							updateSpinner();
 							updateListView();
+							}
+							else {
+								Toast.makeText(getApplicationContext(), "This member already exists", Toast.LENGTH_LONG).show();
+							}
 						}
 					}
 				});

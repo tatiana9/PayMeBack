@@ -53,6 +53,14 @@ public final class GroupContainer {
 		return allGroups;
 	}
 	
+	public List<String> getGroupsNames(){
+		List<String> names = new ArrayList<String>();
+		for (Group g: allGroups){
+			names.add(g.getName());
+		}
+		return names;
+	}
+	
 	public int getSize(){
 		return allGroups.size();
 	}
