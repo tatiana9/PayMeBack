@@ -5,25 +5,24 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddGroupActivity extends Activity {
     /** Called when the activity is first created. */
+	private PayMeBackBDD bdd;
+	
 	private List<Member> members = null;
 	private List<String> names = null;
 	
@@ -37,6 +36,8 @@ public class AddGroupActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addgroup);
+        
+        bdd = new PayMeBackBDD(this);
         
         final Button cancelButton = (Button) findViewById(R.id.cancelCreateGroup);
         final Button applyButton = (Button) findViewById(R.id.applyCreateGroup);
@@ -64,7 +65,7 @@ public class AddGroupActivity extends Activity {
 						Editable value = input.getText();
 						String name = value.toString();
 						
-						if ((name!=null)){
+						if ((name.length()>=1)){
 							if (!newGroup.getMembersNames().contains(name)){
 								newGroup.addMember(name);
 								updateListView();
@@ -104,7 +105,7 @@ public class AddGroupActivity extends Activity {
 						Editable value = input.getText();
 						String name = value.toString();
 						
-						if ((name!=null)){
+						if ((name.length() >= 1)){
 							if (!newGroup.getMembersNames().contains(name)){
 								newGroup.getMembers().set(pos, new Member(name));
 								updateListView();
@@ -112,9 +113,7 @@ public class AddGroupActivity extends Activity {
 							else {
 								Toast.makeText(getApplicationContext(), "This member already exists", Toast.LENGTH_LONG).show();
 							}
-						}
-							
-						
+						}	
 					}
 				});
 				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -156,6 +155,7 @@ public class AddGroupActivity extends Activity {
 						//add the group to GroupContainer
 						GroupContainer.getInstance().addGroupToContainer(newGroup);
 						GroupContainer.getInstance().setCursorAtEnd();
+						writeInBDD();
 						
 						Intent intent = new Intent(v.getContext(), GroupActivity.class);
 						startActivity(intent);
@@ -217,14 +217,14 @@ public class AddGroupActivity extends Activity {
     }
     
     */
-    public void printAllGroupNames(){
-		int size = GroupContainer.getInstance().getSize();
-		List<Group> listGroups = GroupContainer.getInstance().getAllGroups();
-    	if (size>0){
-    		for (Group g : listGroups){
-    			System.out.println(g.getName());
-    		}
+    public void writeInBDD(){
+    	bdd.open();
+    	long groupID = bdd.insertGroup(newGroup.getName());
+    	int id = GroupContainer.getInstance().getCursor();
+    	System.out.println("Test: id dans table = "+groupID+" et id dans groupContainer = "+id);
+    	for (Member m: newGroup.getMembers()){
+    		bdd.insertMember(m.getName(), groupID);
     	}
-    	System.out.println(size);
+    	bdd.close();
     }
 }

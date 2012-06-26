@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 public class NewExpenseActivity extends Activity {
     /** Called when the activity is first created. */
+	private PayMeBackBDD bdd;
+	
 	private static int OLD_EXPENSE = 2;
 	private static int NEW_EXPENSE = 1;
 	private int expenseType = 0;
@@ -54,6 +56,7 @@ public class NewExpenseActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newexpense);
        
+        bdd = new PayMeBackBDD(this);
 
         Bundle extras = getIntent().getExtras();
         expenseType = extras.getInt("expenseType");
@@ -168,6 +171,10 @@ public class NewExpenseActivity extends Activity {
 				String expenseName = editTextName.getText().toString();
 				
 				if (expenseName.length() >=1){
+					if (!nameIsAvailable(expenseName)){
+						Toast.makeText(v.getContext(), "The expense name is not available", Toast.LENGTH_LONG).show();
+						return;
+					}
 					
 					//get the amount
 					String amountChar = editTextAmount.getText().toString();
@@ -241,6 +248,14 @@ public class NewExpenseActivity extends Activity {
 						}
 						else if (expenseType == OLD_EXPENSE){
 							GroupContainer.getInstance().getCurrentGroup().getExpenses().set(expenseIndex, newExpense);
+						}
+						
+						//add or modify expense in database
+						if (expenseType == NEW_EXPENSE){
+							writeInBDD();
+						}
+						else if (expenseType == OLD_EXPENSE){
+							modifyBDD();
 						}
 						Intent intent = new Intent(v.getContext(), GroupActivity.class);
 						startActivity(intent);
@@ -339,5 +354,62 @@ public class NewExpenseActivity extends Activity {
 				participantsListView.setItemChecked(i, false);
 			}
 		}
+	}
+	
+	private boolean nameIsAvailable(String name){
+		if (expenseType == NEW_EXPENSE){
+			if (GroupContainer.getInstance().getCurrentGroup().getExpensesNames().contains(name)){
+				return false;
+			}
+		}
+		else if (expenseType == OLD_EXPENSE){
+			int ind1 = GroupContainer.getInstance().getCurrentGroup().getExpensesNames().indexOf(name);
+			int ind2 = GroupContainer.getInstance().getCurrentGroup().getExpensesNames().lastIndexOf(name);
+			if (ind1 != ind2){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private void writeInBDD(){
+		bdd.open();
+		int groupID = GroupContainer.getInstance().getCursor();
+		long expenseID = bdd.insertExpense(newExpense.getName(), 
+				groupID, 
+				newExpense.getPayer(), 
+				newExpense.getAmount(), 
+				newExpense.getDay(), 
+				newExpense.getMonth(),
+				newExpense.getYear());
+		for (String n: newExpense.getParticipantsNames()){
+			int participantID = GroupContainer.getInstance().getCurrentGroup().getMemberPosition(n);
+			double share = newExpense.getShares().get(participantID);
+			bdd.insertParticipant(participantID, expenseID, groupID, share);
+		}
+		bdd.close();
+	}
+	private void modifyBDD(){
+		bdd.open();
+		int groupID = GroupContainer.getInstance().getCursor();
+		long expenseID = GroupContainer.getInstance().getCurrentGroup().getExpensePosition(newExpense.getName());
+		
+		bdd.updateExpense(expenseID, 
+				newExpense.getName(), 
+				groupID, 
+				newExpense.getPayer(), 
+				newExpense.getAmount(), 
+				newExpense.getDay(), 
+				newExpense.getMonth(),
+				newExpense.getYear());
+		
+		bdd.removeParticipants(expenseID, groupID);
+		
+		for (String n: newExpense.getParticipantsNames()){
+			int participantID = GroupContainer.getInstance().getCurrentGroup().getMemberPosition(n);
+			double share = newExpense.getShares().get(participantID);
+			bdd.insertParticipant(participantID, expenseID, groupID, share);
+		}
+		bdd.close();
 	}
 }

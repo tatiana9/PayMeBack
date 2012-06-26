@@ -11,13 +11,13 @@ import java.util.List;
  */
 public final class GroupContainer {
 	private static volatile GroupContainer instance = null;
-	public List<Group> allGroups;
+	private List<Group> allGroups;
 	private int cursor;
 	
 	private GroupContainer(){
 		super();
 		allGroups = new ArrayList<Group>();
-		cursor = 0;
+		cursor = 0;		
 	}
 	
 	/**

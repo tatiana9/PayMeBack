@@ -33,6 +33,17 @@ public class Group {
 	public void setExpenses(List<Expense> expenses){
 		this.expenses = expenses;
 	}
+	public List<String> getExpensesNames(){
+		List<String> names = new ArrayList<String>();
+		for (Expense e : expenses){
+			names.add(e.getName());
+		}
+		return names;
+	}
+	public int getExpensePosition(String name){
+		List<String> names = getExpensesNames();
+		return names.indexOf(name);
+	}
 	
 	public void addMember(String name){
 		Member newMember = new Member(name);
