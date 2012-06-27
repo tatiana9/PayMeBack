@@ -441,7 +441,7 @@ public class NewExpenseActivity extends Activity {
 		int groupID = GroupContainer.getInstance().getCursor() + 1;
 
 		// in case members have been added with button add friend => update membersTable in BDD
-		System.out.println("update. nb de membres = "+membersNames.size());
+		System.out.println("update nb de membres = "+membersNames.size());
 		long nbMembersInserted = bdd.updateMembersList(membersNames, groupID);
 		System.out.println("update done, "+nbMembersInserted+" inserted");
 		

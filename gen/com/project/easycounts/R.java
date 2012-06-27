@@ -29,6 +29,7 @@ public final class R {
         public static final int cancelCreateGroup=0x7f050001;
         public static final int dateDisplay=0x7f050017;
         public static final int expendituresBalance=0x7f050007;
+        public static final int expenseItemName=0x7f05000d;
         public static final int expenseName=0x7f050013;
         public static final int globalBalance=0x7f050006;
         public static final int goBack=0x7f050009;
@@ -38,7 +39,6 @@ public final class R {
         public static final int listGroups=0x7f050005;
         public static final int listMembers=0x7f050004;
         public static final int loadGroup=0x7f050010;
-        public static final int name=0x7f05000d;
         public static final int paidBySpinner=0x7f050014;
         public static final int participantsList=0x7f050019;
         public static final int pickDate=0x7f050018;

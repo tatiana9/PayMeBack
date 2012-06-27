@@ -141,7 +141,7 @@ public class PayMeBackBDD {
 	}
 	
 	public long updateMembersList(List<String> membersNames, long groupID){
-		removeAllMembers();
+		removeAllMembers(groupID);
 		long lastID = 0;
 		for (String name: membersNames){
 			lastID = insertMember(name, groupID);
@@ -166,8 +166,8 @@ public class PayMeBackBDD {
 	public int removeMemberWithId(long id){
 		return bdd.delete(MEMBER_TABLE_NAME, COL_ID + " = " + id, null);
 	}
-	public int removeAllMembers(){
-		return bdd.delete(MEMBER_TABLE_NAME, null, null);
+	public int removeAllMembers(long groupID){
+		return bdd.delete(MEMBER_TABLE_NAME, COL_ID_G + " = " + groupID, null);
 	}
 	public int removeExpenseWithId(long id){
 		return bdd.delete(EXPENSE_TABLE_NAME, COL_ID + " = " + id, null);
@@ -262,6 +262,7 @@ public class PayMeBackBDD {
 		int id_g = 0;
 		for (int i = 0; i<allGroups.size(); i++){
 			id_g = i+1;
+			System.out.println("query for groupID "+id_g);
 			Cursor c_members = bdd.query(MEMBER_TABLE_NAME, new String [] {COL_ID, COL_NAME, COL_ID_G}, COL_ID_G + " = " + id_g, null, null, null, null);
 			List<Member> members = cursorToListMembers(c_members);
 			allGroups.get(i).setMembers(members);
@@ -300,7 +301,7 @@ public class PayMeBackBDD {
 						null, null, null, null);
 				
 				int participantsCount = c.getCount();
-				System.out.println("nb de participants: "+participantsCount);
+				System.out.println("nb de participants : "+participantsCount);
 
 				if (!(participantsCount == 0)){
 					c.moveToFirst();
@@ -311,7 +312,7 @@ public class PayMeBackBDD {
 					participants.add(firstP);
 					shares.add(firstId-1, c.getDouble(NUM_COL_SHARE));
 					while (c.moveToNext()){
-						System.out.println("un  tour dans while");
+						System.out.println("un tour dans while");
 						int id = c.getInt(NUM_COL_ID_P);
 						System.out.println("participant id: "+ id);
 						Member p = g.getMembers().get(id-1);

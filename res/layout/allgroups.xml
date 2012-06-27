@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
- <!-- 
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/listGroups"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >   
-</ListView>
- -->
- 
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/listGroups"
+
+ <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-     
- </LinearLayout>
+    
+ 	<LinearLayout
+    	android:id="@+id/listGroups"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical"
+ 		/>
+ 
+ </ScrollView>

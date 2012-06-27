@@ -20,10 +20,10 @@ import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
 
 public class AllGroupsActivity extends Activity {
-	private List<Group> groups = null;
 	private List<String> names = null;
 	//private ListView list;
 	private View list;
+	private List<View> viewsList;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,31 +39,41 @@ public class AllGroupsActivity extends Activity {
 		});
 		*/
         
-	    //list = (ListView) findViewById(R.id.listGroups);
-	    groups = new ArrayList<Group>();
 	    names = new ArrayList<String>();
+	    viewsList = new ArrayList<View>();
 	    
 	    list = findViewById(R.id.listGroups);
-		//TextView essai = new TextView(this);
-		//essai.setText("essai");
-		//essai.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
-		//list.setBackgroundColor(Color.TRANSPARENT);
-		//((LinearLayout)list).addView(essai);
+
+	    LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    
-	    updateList();
-	    //essai a la main
-	    /*
-	    names = GroupContainer.getInstance().getGroupsNames();
-	    for (String name: names){
-	    	TextView t = new TextView(this);
-	    	t.setText(name);
-	    	t.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
-	    	((LinearLayout) list).addView(t);
-	    }
-	    */
+		int size = GroupContainer.getInstance().getSize();
+		if (size > 0){
+			names = GroupContainer.getInstance().getGroupsNames();
+			for (int i =0; i<names.size(); i++){
+				String name = names.get(i);
+				View view = inflater.inflate(R.layout.list_group_item, null);
+				((TextView)view.findViewById(R.id.groupItemName)).setText(name);
+				viewsList.add(view);
+				((LinearLayout) list).addView(view);
+			}
+		}
 	    
-	    
-	    
+		for (View view: viewsList){
+		    view.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					int position = GroupContainer.getInstance().getGroupPosition(((TextView)v).getText().toString());
+					System.out.println("group position: "+position);
+					GroupContainer.getInstance().setCursor(position);
+					Intent intent = new Intent(getApplicationContext(), GroupActivity.class);
+					startActivity(intent);
+				}
+			});
+		}
+
+		
+	    //list = (ListView) findViewById(R.id.listGroups);
+
 	    //updateListView();
 	    /*
 	    list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -99,17 +109,14 @@ public class AllGroupsActivity extends Activity {
 		}
 	}
 	*/
-	
+	/*
 	public void updateList(){
-		System.out.println("update0");
 		LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		int size = GroupContainer.getInstance().getSize();
 		if (size > 0){
-			System.out.println("update1");
 			names = GroupContainer.getInstance().getGroupsNames();
 			for (int i =0; i<names.size(); i++){
 				String name = names.get(i);
-				System.out.println("update2");
 				View v = inflater.inflate(R.layout.list_group_item, null);
 				((TextView)v.findViewById(R.id.groupItemName)).setText(name);
 				
@@ -125,13 +132,12 @@ public class AllGroupsActivity extends Activity {
 				});
 				
 				((LinearLayout) list).addView(v);
-				System.out.println("update3");
 
 			}
 		}
 
 	}
-	
+	*/
 }
 
 

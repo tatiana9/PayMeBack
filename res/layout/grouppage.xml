@@ -21,26 +21,14 @@
     	    android:layout_height="wrap_content"
     	    android:text="@string/balance" 
 		    />
-	
-		<Button 
-		    android:id="@+id/goBack"
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content"
-    	    android:text="@string/go_back" 
-		    />
+
 	</LinearLayout>
 	
 	<LinearLayout
+	    android:id="@+id/listExpenses"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:orientation="vertical">
-    
-    	<ListView
-    	    android:id="@+id/listExpenses"
-        	android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	/>
-    	
     </LinearLayout>
     
 </LinearLayout>
