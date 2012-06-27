@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TransactionsActivity extends Activity{
 	private TextView transactionsView;
@@ -43,13 +44,18 @@ public class TransactionsActivity extends Activity{
 	
     private void setTransactionsView(){
     	String s = "";
-    	while(!isRaz(trans)){
+    	int i=0;
+    	while((!isRaz(trans))&&(i<=membersNames.size())){
     		int indMax = getMaxInd(trans);
     		int indMin = getMinInd(trans);
     		double x = - trans[indMin];
     		s += membersNames.get(indMin) + " gives " + x + " to " + membersNames.get(indMax) + "\n";
-    		trans[indMax] = trans[indMax] + trans[indMin];
+    		trans[indMax] = getRound(trans[indMax] + trans[indMin]);
     	    trans[indMin] = 0;
+    	    i++;
+    	}
+    	if (i > membersNames.size()){
+    		Toast.makeText(getApplicationContext(), "infinite loop, pb in shares", Toast.LENGTH_LONG).show();
     	}
     	transactionsView.setText(s);
     }
@@ -93,4 +99,10 @@ public class TransactionsActivity extends Activity{
     	}
     	return ind;
     }
+    
+	private double getRound(double x){
+		//arrondir à 2 chiffres après la virgule)
+		double arr = Math.round(x*100)/(double)100;
+		return arr;
+	}
 }

@@ -100,5 +100,9 @@ public class Expense {
 		shares.add(s);
 	}
 
-	
+	public String toString(){
+		String s = "";
+		s += name + ", " + amount + ", " + payer;
+		return s;
+	}
 }

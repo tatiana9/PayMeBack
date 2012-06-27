@@ -101,11 +101,11 @@ public class NewExpenseActivity extends Activity {
 						Editable value = input.getText();
 						String name = value.toString();
 						
-						if (name!=null){
+						if (name.length()>=1){
 							if (!membersNames.contains(name)){
-							GroupContainer.getInstance().getCurrentGroup().addMember(name);
-							updateSpinner();
-							updateListView();
+								GroupContainer.getInstance().getCurrentGroup().addMember(name);
+								updateSpinner();
+								updateListView();
 							}
 							else {
 								Toast.makeText(getApplicationContext(), "This member already exists", Toast.LENGTH_LONG).show();
@@ -188,8 +188,11 @@ public class NewExpenseActivity extends Activity {
 					catch (NumberFormatException ex){
 					  	Toast.makeText(v.getContext(), "The amount must be a number", Toast.LENGTH_LONG).show();
 					  	return;
-				    }
-					newExpense.setAmount(amount);
+					}
+					if (amount != getRound(amount)){
+						Toast.makeText(v.getContext(), "the amount has been rounded to two digits", Toast.LENGTH_LONG).show();
+					}
+					newExpense.setAmount(getRound(amount));
 						
 					//get the payer from spinner
 					String payer;
@@ -214,41 +217,61 @@ public class NewExpenseActivity extends Activity {
 							participantsCount ++;
 						}
 					}
+					System.out.println("nb de participants: "+newExpense.getParticipants().size());
+					System.out.println("verification participantsCount: "+participantsCount);
 					if (participantsCount > 0){
 						//TODO get custom shares
 						double pseudoTotal = 0;
+						int nb = 0;
 						for (int i = 0; i<membersNames.size(); i++){
 							if (newExpense.getParticipantsNames().contains(membersNames.get(i))){
+								System.out.println("j'ai trouve un participant");
+								nb ++;
 								double s = 0;
-								if (i == membersNames.size()-1){
-									s = newExpense.getAmount()-pseudoTotal;
+								if (nb == participantsCount){
+									s = getRound(newExpense.getAmount()-pseudoTotal);
+									System.out.println("der: "+s);
 								}
 								else {
 									s = getRound((newExpense.getAmount())/(double)participantsCount);
+									System.out.println("inter: "+s);
 									pseudoTotal += s;
+									System.out.println("pseudo total: "+pseudoTotal);
 								}
 								newExpense.addShare(s);
 							}
 							else {
-								newExpense.addShare(0);
+								newExpense.addShare(0.0);
 							}
 						}
+						System.out.println("size Shares: "+newExpense.getShares().size());
 						double sum = 0;
 						for (int i=0; i<newExpense.getShares().size(); i++){
 							sum += newExpense.getShares().get(i);
         				}
-						if (sum != newExpense.getAmount()){
+						System.out.println(getRound(sum));
+						System.out.println(newExpense.getAmount());
+						if (getRound(sum) != newExpense.getAmount()){
 							Toast.makeText(v.getContext(), "sum of shares doesn't match total amount", Toast.LENGTH_LONG).show();
 							return;
 						}
 							
 						//add the expense to the current group or update old expense!
 						if (expenseType == NEW_EXPENSE){
+							System.out.println("new expense!!");
 							GroupContainer.getInstance().getCurrentGroup().addExpense(newExpense);
 						}
 						else if (expenseType == OLD_EXPENSE){
+							System.out.println("old expense!!");
 							GroupContainer.getInstance().getCurrentGroup().getExpenses().set(expenseIndex, newExpense);
+							for (int i =0; i<GroupContainer.getInstance().getCurrentGroup().getExpenses().size(); i++){
+								System.out.println("size share in modified expense number : "+i+" : "
+										+GroupContainer.getInstance().getCurrentGroup().getExpenses().get(i).getShares().size());
+							}
 						}
+						
+						//update all expenses shares lists in case user added a member
+						updateAllExpensesShares();
 						
 						//add or modify expense in database
 						if (expenseType == NEW_EXPENSE){
@@ -313,6 +336,7 @@ public class NewExpenseActivity extends Activity {
     	//TODO : change to method using "cursor" to be in the right group (especially when parent Activity is AllGroupsActivity)
     	Group g = GroupContainer.getInstance().getCurrentGroup();
     	membersNames = g.getMembersNames();
+    	System.out.println("nombre de membres dans membersNames : "+membersNames.size());
     }
 	
 	private void updateSpinner(){
@@ -372,9 +396,31 @@ public class NewExpenseActivity extends Activity {
 		return true;
 	}
 	
+	public void updateAllExpensesShares(){
+		Group g = GroupContainer.getInstance().getCurrentGroup();
+		for (int i=0; i<g.getExpenses().size(); i++){
+			Expense e = g.getExpenses().get(i);
+			int diff = membersNames.size() - e.getShares().size();
+			if (diff > 0){
+				System.out.println("il faut update la depense "+i+" car diff = "+diff);
+				for (int j=0; j<diff; j++){
+					e.addShare(0.0);
+				}
+				g.getExpenses().set(i, e);
+			}
+		}
+		GroupContainer.getInstance().getCurrentGroup().setExpenses(g.getExpenses());
+	}
+	
+	
 	private void writeInBDD(){
 		bdd.open();
 		int groupID = GroupContainer.getInstance().getCursor() + 1;
+		//in case members have been added with button add friend => update membersTable in BDD
+		System.out.println("update. nb de membres = "+membersNames.size());
+		long nbMembersInserted = bdd.updateMembersList(membersNames, groupID);
+		System.out.println("update done, "+nbMembersInserted+" inserted");
+		
 		long expenseID = bdd.insertExpense(newExpense.getName(), 
 				groupID, 
 				newExpense.getPayer(), 
@@ -393,6 +439,13 @@ public class NewExpenseActivity extends Activity {
 	private void modifyBDD(){
 		bdd.open();
 		int groupID = GroupContainer.getInstance().getCursor() + 1;
+
+		// in case members have been added with button add friend => update membersTable in BDD
+		System.out.println("update. nb de membres = "+membersNames.size());
+		long nbMembersInserted = bdd.updateMembersList(membersNames, groupID);
+		System.out.println("update done, "+nbMembersInserted+" inserted");
+		
+		
 		long expenseID = GroupContainer.getInstance().getCurrentGroup().getExpensePosition(newExpense.getName()) + 1;
 		
 		bdd.updateExpense(expenseID, 

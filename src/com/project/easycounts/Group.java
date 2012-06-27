@@ -67,4 +67,18 @@ public class Group {
 	public void addExpense(Expense newExpense){
 		this.expenses.add(newExpense);
 	}
+	
+	public String toString(){
+		String s = "";
+		s += "Members: <";
+		for (Member m: members){
+			s += m.getName()+" / ";
+		}
+		s += "> \n Expenses: <";
+		for (Expense e: expenses){
+			s += e.getName() + ", " + e.getAmount() + ", " + e.getPayer() + " / ";
+		}
+		s+= ">";
+		return s;
+	}
 }

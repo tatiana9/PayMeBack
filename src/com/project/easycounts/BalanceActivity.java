@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BalanceActivity extends Activity {
 	private TextView globalBalance;
@@ -32,7 +33,7 @@ public class BalanceActivity extends Activity {
         //initialize group and membersNames
     	group = GroupContainer.getInstance().getCurrentGroup();
     	membersNames = group.getMembersNames();
-    	System.out.println("on create balanceActivity : membersNames.size = "+membersNames.size());
+    	System.out.println("oncreate balanceActivity : membersNames.size = " + membersNames.size());
         
         //DO NOT change order of those gets
         total = getGlobalBalance();
@@ -61,8 +62,17 @@ public class BalanceActivity extends Activity {
     	total = new double[membersNames.size()];
     	for (Expense e : group.getExpenses()){
     		for (int i=0; i<membersNames.size(); i++){
+    	    	System.out.println("getBlobBal dit : size shares = "+e.getShares().size());
+
+    			if (i>=e.getShares().size()){
+					Toast.makeText(getApplicationContext(), "index out of bounds in getGlobBalance()", Toast.LENGTH_LONG).show();
+					return total;
+    			}
     			total[i] += e.getShares().get(i);
     		}
+    	}
+    	for (int i=0; i<total.length; i++){
+    		total[i] = getRound(total[i]);
     	}
     	return total;
     }
@@ -76,7 +86,14 @@ public class BalanceActivity extends Activity {
     		System.out.println("payer: "+e.getPayer());
     		int p = group.getMemberPosition(e.getPayer());
     		System.out.println("payer position " +p);
-    		realTotal[p] += e.getAmount();
+			if (p<0){
+				Toast.makeText(getApplicationContext(), "index out of bounds in getExpBalance()", Toast.LENGTH_LONG).show();
+				return realTotal;
+			}
+			realTotal[p] += e.getAmount();
+    	}
+    	for (int i=0; i<realTotal.length; i++){
+    		realTotal[i] = getRound(realTotal[i]);
     	}
     	return realTotal;
     }
@@ -103,5 +120,11 @@ public class BalanceActivity extends Activity {
     	}
     	expendituresBalance.setText(s);
     }
+    
+	private double getRound(double x){
+		//arrondir ˆ 2 chiffres aprs la virgule)
+		double arr = Math.round(x*100)/(double)100;
+		return arr;
+	}
     
 }

@@ -1,5 +1,7 @@
 package com.project.easycounts;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ public class HomeScreenActivity extends Activity{
         bdd = new PayMeBackBDD(this);
         bdd.open();
         bdd.loadBDD();
+        printAllGroups();
         bdd.close();
         
         final Button addGroupButton = (Button) findViewById(R.id.addGroup);
@@ -41,5 +44,11 @@ public class HomeScreenActivity extends Activity{
 		
     }
     
+    public void printAllGroups(){
+    	List<Group> allGroups = GroupContainer.getInstance().getAllGroups();
+    	for (Group g: allGroups){
+    		System.out.println(g.toString());
+    	}
+    }
 
 }

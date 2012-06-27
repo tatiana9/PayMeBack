@@ -27,16 +27,16 @@ public class PayMeBackDataBaseHelper extends SQLiteOpenHelper {
 	private static final String COL_SHARE = "[Share]";
 
 	private static final String GROUP_TABLE_CREATE = "CREATE TABLE " + GROUP_TABLE_NAME + " (" 
-			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
+			+ COL_ID + " INTEGER PRIMARY KEY, " 
 			+ COL_NAME + " TEXT NOT NULL);";
 	
 	private static final String MEMBER_TABLE_CREATE = "CREATE TABLE " + MEMBER_TABLE_NAME + " ("
-			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ COL_ID + " INTEGER PRIMARY KEY, "
 			+ COL_NAME + " TEXT NOT NULL, "
 			+ COL_ID_G + " TEXT NOT NULL);";
 	
 	private static final String EXPENSE_TABLE_CREATE = "CREATE TABLE " + EXPENSE_TABLE_NAME + " ("
-			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ COL_ID + " INTEGER PRIMARY KEY, "
 			+ COL_NAME + " TEXT NOT NULL, "
 			+ COL_ID_G + " INTEGER, "
 			+ COL_PAYER + " TEXT NOT NULL, "
