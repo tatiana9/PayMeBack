@@ -13,15 +13,13 @@ import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class AddGroupActivity extends Activity {
     /** Called when the activity is first created. */
@@ -30,11 +28,10 @@ public class AddGroupActivity extends Activity {
 	private List<Member> members = null;
 	private List<String> names = null;
 	
-	//private ListView list;
 	private View list;
 	private List<View> viewsList;
+	private List<ImageButton> buttonsList;
 	
-	private ArrayAdapter<String> adapter;
 	private Group newGroup;
 	
     @Override
@@ -51,15 +48,15 @@ public class AddGroupActivity extends Activity {
         //instantiate a new group
         newGroup = new Group();
         
-        //list = (ListView) findViewById(R.id.listMembers);
         list = findViewById(R.id.listMembers);
         viewsList = new ArrayList<View>();
+        buttonsList = new ArrayList<ImageButton>();
         
         members = new ArrayList<Member>();
         names = new ArrayList<String>();
 
-        //updateListView();
         updateList();
+        
         
         addMemberButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -68,6 +65,7 @@ public class AddGroupActivity extends Activity {
 				builder.setTitle("Member's name");
 				builder.setCancelable(true);
 				final EditText input = new EditText(v.getContext());
+				input.setSingleLine(true);
 				builder.setView(input);
 				builder.setPositiveButton("Add", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int id) {
@@ -84,8 +82,6 @@ public class AddGroupActivity extends Activity {
 								Toast.makeText(getApplicationContext(), "This member already exists", Toast.LENGTH_LONG).show();
 							}
 						}
-							
-						
 					}
 				});
 				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -100,97 +96,7 @@ public class AddGroupActivity extends Activity {
 		});
         
         
-        for (View view: viewsList){
-        	view.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					//int position = GroupContainer.getInstance().getCurrentGroup().getMemberPosition(((TextView)v).getText().toString());
-					int position = names.indexOf(((TextView)v).getText().toString());
-					System.out.println("expense position : "+position);
-					
-					AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-					builder.setTitle("Edit member's name");
-					builder.setCancelable(true);
-					final EditText input = new EditText(v.getContext());
-					final int pos = position;
-					String n = ((TextView)v).getText().toString();
-					input.setText(n);
-					builder.setView(input);
-					builder.setPositiveButton("Edit", new DialogInterface.OnClickListener(){
-						public void onClick(DialogInterface dialog, int id) {
-							Editable value = input.getText();
-							String name = value.toString();
-							
-							if ((name.length() >= 1)){
-								if (!newGroup.getMembersNames().contains(name)){
-									newGroup.getMembers().set(pos, new Member(name));
-									//updateListView();
-									updateList();
-								}
-								else {
-									Toast.makeText(getApplicationContext(), "This member already exists", Toast.LENGTH_LONG).show();
-								}
-							}	
-						}
-					});
-					builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-						public void onClick(DialogInterface dialog, int id){
-							dialog.cancel();
-						}
-					});
-					
-					AlertDialog alert = builder.create();
-					alert.show();
-					
-				}
-			});
-        }
-        
-        
-        /*
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-				builder.setTitle("Edit member's name");
-				builder.setCancelable(true);
-				final EditText input = new EditText(view.getContext());
-				final int pos = position;
-				String n = ((TextView)view).getText().toString();
-				input.setText(n);
-				builder.setView(input);
-				builder.setPositiveButton("Edit", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int id) {
-						Editable value = input.getText();
-						String name = value.toString();
-						
-						if ((name.length() >= 1)){
-							if (!newGroup.getMembersNames().contains(name)){
-								newGroup.getMembers().set(pos, new Member(name));
-								//updateListView();
-								updateList();
-							}
-							else {
-								Toast.makeText(getApplicationContext(), "This member already exists", Toast.LENGTH_LONG).show();
-							}
-						}	
-					}
-				});
-				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int id){
-						dialog.cancel();
-					}
-				});
-				
-				AlertDialog alert = builder.create();
-				alert.show();
-			}
-	    	
-	    });
-        */
-        
-        
-        
+       
         cancelButton.setOnClickListener(new View.OnClickListener() {			
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), HomeScreenActivity.class);
@@ -246,27 +152,98 @@ public class AddGroupActivity extends Activity {
     }
     
     
-    /*
-    public void updateListView(){
-    	members = newGroup.getMembers();
-    	if (members != null){
-    		updateNames();
-	    	adapter = new ArrayAdapter<String>(this, R.layout.list_member_item, names);
-	    	list.setAdapter(adapter);
-			list.setTextFilterEnabled(true);
-    	}
-    }
-    */
-    
     private void updateList(){
     	LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	names = newGroup.getMembersNames();
+    	((LinearLayout)list).removeAllViews();
+    	viewsList.clear();
+    	buttonsList.clear();
     	for (String name: names){
-			View view = inflater.inflate(R.layout.list_expense_item, null);
-			((TextView)view.findViewById(R.id.expenseItemName)).setText(name);
-			viewsList.add(view);
+			View view = inflater.inflate(R.layout.list_member_item, null);
+			TextView t = (TextView) view.findViewById(R.id.memberName);
+			t.setText(name);
+			ImageButton b = (ImageButton) view.findViewById(R.id.deleteButton);
+			viewsList.add(t);
+			buttonsList.add(b);
 			((LinearLayout) list).addView(view);
 		}
+    	
+        for (View view: viewsList){
+			TextView t = (TextView) view.findViewById(R.id.memberName);
+        	t.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//int position = GroupContainer.getInstance().getCurrentGroup().getMemberPosition(((TextView)v).getText().toString());
+					int position = names.indexOf(((TextView)v).getText().toString());
+					System.out.println("expense position : "+position);
+					
+					AlertDialog.Builder builder = new AlertDialog.Builder(AddGroupActivity.this);
+					builder.setTitle("Edit member's name");
+					builder.setCancelable(true);
+					final EditText input = new EditText(AddGroupActivity.this);
+					input.setSingleLine(true);
+					final int pos = position;
+					String n = ((TextView)v).getText().toString();
+					input.setText(n);
+					builder.setView(input);
+					builder.setPositiveButton("Edit", new DialogInterface.OnClickListener(){
+						public void onClick(DialogInterface dialog, int id) {
+							Editable value = input.getText();
+							String name = value.toString();
+							
+							if ((name.length() >= 1)){
+								if (!newGroup.getMembersNames().contains(name)){
+									newGroup.getMembers().set(pos, new Member(name));
+									//updateListView();
+									updateList();
+								}
+								else {
+									Toast.makeText(getApplicationContext(), "This member already exists", Toast.LENGTH_LONG).show();
+								}
+							}	
+						}
+					});
+					builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+						public void onClick(DialogInterface dialog, int id){
+							dialog.cancel();
+						}
+					});
+					
+					AlertDialog alert = builder.create();
+					alert.show();
+				}
+			});
+        }
+        
+        //for (int i=0; i<buttonsList.size(); i++){
+        for (ImageButton button: buttonsList){
+        	int pos = buttonsList.indexOf(button);
+        	final String associatedName = newGroup.getMembersNames().get(pos);
+        	button.setOnClickListener(new View.OnClickListener() {
+    			
+    			public void onClick(View v) {
+    				// TODO Auto-generated method stub
+    				AlertDialog.Builder builder = new AlertDialog.Builder(AddGroupActivity.this);
+    				builder.setTitle("Do you really want to delete "+associatedName+"?");
+    				builder.setCancelable(true);
+    				builder.setPositiveButton("Delete", new DialogInterface.OnClickListener(){
+    					public void onClick(DialogInterface dialog, int id) {						
+    						newGroup.deleteMember(associatedName);
+    						updateList();
+    					}
+    				});
+    				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+    					public void onClick(DialogInterface dialog, int id){
+    						dialog.cancel();
+    					}
+    				});
+    				
+    				AlertDialog alert = builder.create();
+    				alert.show();
+    			}
+    		});
+        }
+        
     }
     
     

@@ -44,7 +44,7 @@ public class TransactionsActivity extends Activity{
     		double x = - trans[indMin];
     		s += membersNames.get(indMin) + " gives " + x + " to " + membersNames.get(indMax) + "\n";
     		trans[indMax] = getRound(trans[indMax] + trans[indMin]);
-    	    trans[indMin] = 0;
+    	    trans[indMin] = 0.0;
     	    i++;
     	}
     	if (i > membersNames.size()){
@@ -70,7 +70,7 @@ public class TransactionsActivity extends Activity{
     	if ((t != null)&&(t.length>0)){
         	double aux = t[0];
         	for (int i=0; i<t.length; i++){
-        		if (t[i]>aux){
+        		if ((t[i]>aux) &&(t[i]!=0.0)){
         			aux = t[i];
         			ind = i;
         		}
@@ -84,7 +84,7 @@ public class TransactionsActivity extends Activity{
     	if ((t != null)&&(t.length>0)){
         	double aux = t[0];
         	for (int i=0; i<t.length; i++){
-        		if (t[i]<aux){
+        		if ((t[i]<aux)&&(t[i]!=0.0)){
         			aux = t[i];
         			ind = i;
         		}

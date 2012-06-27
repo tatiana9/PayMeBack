@@ -28,7 +28,8 @@
             android:name=".GroupActivity">
         </activity>
         <activity
-            android:name=".NewExpenseActivity">
+            android:name=".NewExpenseActivity"
+            android:windowSoftInputMode="stateUnchanged">
         </activity>
         <activity
             android:name=".BalanceActivity">

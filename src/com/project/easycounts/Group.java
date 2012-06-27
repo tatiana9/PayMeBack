@@ -63,6 +63,9 @@ public class Group {
 		List<String> names = getMembersNames();
 		return names.indexOf(name);
 	}
+	public void deleteMember(String name){
+		members.remove(getMembersNames().indexOf(name));
+	}
 	
 	public void addExpense(Expense newExpense){
 		this.expenses.add(newExpense);
