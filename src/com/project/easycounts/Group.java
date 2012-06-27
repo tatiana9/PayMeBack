@@ -70,6 +70,7 @@ public class Group {
 	
 	public String toString(){
 		String s = "";
+		s += "Group: "+name+"\n";
 		s += "Members: <";
 		for (Member m: members){
 			s += m.getName()+" / ";

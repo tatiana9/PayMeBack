@@ -18,39 +18,43 @@ public final class R {
     }
     public static final class id {
         public static final int addExpense=0x7f05000a;
-        public static final int addFriend=0x7f050013;
-        public static final int addGroup=0x7f05000d;
+        public static final int addFriend=0x7f050015;
+        public static final int addGroup=0x7f05000f;
         public static final int addMember=0x7f050003;
-        public static final int addNewExpense=0x7f05000f;
-        public static final int amount=0x7f050014;
+        public static final int addNewExpense=0x7f050011;
+        public static final int amount=0x7f050016;
         public static final int applyCreateGroup=0x7f050000;
         public static final int balance=0x7f05000b;
-        public static final int cancelAddExpense=0x7f050010;
+        public static final int cancelAddExpense=0x7f050012;
         public static final int cancelCreateGroup=0x7f050001;
-        public static final int dateDisplay=0x7f050015;
-        public static final int expendituresBalance=0x7f050008;
-        public static final int expenseName=0x7f050011;
-        public static final int globalBalance=0x7f050007;
-        public static final int goBack=0x7f050005;
+        public static final int dateDisplay=0x7f050017;
+        public static final int expendituresBalance=0x7f050007;
+        public static final int expenseName=0x7f050013;
+        public static final int globalBalance=0x7f050006;
+        public static final int goBack=0x7f050009;
+        public static final int groupItemName=0x7f05000e;
         public static final int groupName=0x7f050002;
         public static final int listExpenses=0x7f05000c;
-        public static final int listGroups=0x7f050006;
+        public static final int listGroups=0x7f050005;
         public static final int listMembers=0x7f050004;
-        public static final int loadGroup=0x7f05000e;
-        public static final int paidBySpinner=0x7f050012;
-        public static final int participantsList=0x7f050017;
-        public static final int pickDate=0x7f050016;
-        public static final int transactions=0x7f050009;
+        public static final int loadGroup=0x7f050010;
+        public static final int name=0x7f05000d;
+        public static final int paidBySpinner=0x7f050014;
+        public static final int participantsList=0x7f050019;
+        public static final int pickDate=0x7f050018;
+        public static final int transactions=0x7f050008;
     }
     public static final class layout {
         public static final int addgroup=0x7f030000;
         public static final int allgroups=0x7f030001;
         public static final int balance=0x7f030002;
         public static final int grouppage=0x7f030003;
-        public static final int list_member_item=0x7f030004;
-        public static final int main=0x7f030005;
-        public static final int newexpense=0x7f030006;
-        public static final int transactions=0x7f030007;
+        public static final int list_expense_item=0x7f030004;
+        public static final int list_group_item=0x7f030005;
+        public static final int list_member_item=0x7f030006;
+        public static final int main=0x7f030007;
+        public static final int newexpense=0x7f030008;
+        public static final int transactions=0x7f030009;
     }
     public static final class string {
         /**  GroupActivity 

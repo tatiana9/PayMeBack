@@ -76,6 +76,10 @@ public final class GroupContainer {
 		return allGroups.get(cursor);
 	}
 	
+	public int getGroupPosition(String name){
+		return getGroupsNames().indexOf(name);
+	}
+	
 	public Group getLastGroup(){
 		return allGroups.get(allGroups.size()-1);
 	}

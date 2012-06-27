@@ -1,36 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <!-- 
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listGroups"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-    
-    <LinearLayout
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:orientation="horizontal">
-    
-		<Button 
-	   		android:id="@+id/goBack"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:text="@string/go_back" 
-	   		/>
-		
-	</LinearLayout>	
-	
-	<LinearLayout
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:orientation="vertical">
-    
-    	<ListView
-    	    android:id="@+id/listGroups"
-        	android:layout_width="fill_parent"
-        	android:layout_height="fill_parent"
-        	/>
-    	
-    </LinearLayout>
-   
-    
-   
+    android:orientation="vertical" >   
+</ListView>
+ -->
+ 
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listGroups"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+     
  </LinearLayout>
