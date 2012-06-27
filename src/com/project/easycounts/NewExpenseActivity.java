@@ -374,7 +374,7 @@ public class NewExpenseActivity extends Activity {
 	
 	private void writeInBDD(){
 		bdd.open();
-		int groupID = GroupContainer.getInstance().getCursor();
+		int groupID = GroupContainer.getInstance().getCursor() + 1;
 		long expenseID = bdd.insertExpense(newExpense.getName(), 
 				groupID, 
 				newExpense.getPayer(), 
@@ -383,16 +383,17 @@ public class NewExpenseActivity extends Activity {
 				newExpense.getMonth(),
 				newExpense.getYear());
 		for (String n: newExpense.getParticipantsNames()){
-			int participantID = GroupContainer.getInstance().getCurrentGroup().getMemberPosition(n);
-			double share = newExpense.getShares().get(participantID);
+			int participantID = GroupContainer.getInstance().getCurrentGroup().getMemberPosition(n) + 1;
+			double share = newExpense.getShares().get(participantID - 1);
 			bdd.insertParticipant(participantID, expenseID, groupID, share);
 		}
 		bdd.close();
 	}
+	
 	private void modifyBDD(){
 		bdd.open();
-		int groupID = GroupContainer.getInstance().getCursor();
-		long expenseID = GroupContainer.getInstance().getCurrentGroup().getExpensePosition(newExpense.getName());
+		int groupID = GroupContainer.getInstance().getCursor() + 1;
+		long expenseID = GroupContainer.getInstance().getCurrentGroup().getExpensePosition(newExpense.getName()) + 1;
 		
 		bdd.updateExpense(expenseID, 
 				newExpense.getName(), 
@@ -406,8 +407,8 @@ public class NewExpenseActivity extends Activity {
 		bdd.removeParticipants(expenseID, groupID);
 		
 		for (String n: newExpense.getParticipantsNames()){
-			int participantID = GroupContainer.getInstance().getCurrentGroup().getMemberPosition(n);
-			double share = newExpense.getShares().get(participantID);
+			int participantID = GroupContainer.getInstance().getCurrentGroup().getMemberPosition(n) + 1;
+			double share = newExpense.getShares().get(participantID - 1);
 			bdd.insertParticipant(participantID, expenseID, groupID, share);
 		}
 		bdd.close();

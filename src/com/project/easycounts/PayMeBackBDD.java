@@ -163,9 +163,11 @@ public class PayMeBackBDD {
 		return bdd.delete(PARTICIPANT_TABLE_NAME, COL_ID_E + " = " + expenseID + " AND " + COL_ID_G + " = " + groupID, null);
 	}
 	
-/*	
+	
 	public List<Group> cursorToListGroup(Cursor c){
 		List<Group> allGroups = new ArrayList<Group>();
+		System.out.println("nb de groupes: "+c.getCount());
+
 		if (c.getCount() == 0) return allGroups;
 		c.moveToFirst();
 		Group firstgroup = new Group();
@@ -182,6 +184,8 @@ public class PayMeBackBDD {
 	
 	public List<Member> cursorToListMembers(Cursor c){
 		List<Member> members = new ArrayList<Member>();
+		System.out.println("nb de membres: "+c.getCount());
+
 		if (c.getCount() == 0) return members;
 		c.moveToFirst();
 		Member firstMember = new Member();
@@ -197,6 +201,8 @@ public class PayMeBackBDD {
 	
 	public List<Expense> cursorToListExpenses(Cursor c){
 		List<Expense> expenses = new ArrayList<Expense>();
+		System.out.println("nb de depenses: "+c.getCount());
+
 		if (c.getCount() == 0) return expenses;
 		c.moveToFirst();
 		Expense firstexpense = new Expense();
@@ -218,6 +224,7 @@ public class PayMeBackBDD {
 	
 	//to load existing data into the model GroupContainer
 	public void loadBDD(){
+		
 		//remove all existing data in model
 		GroupContainer.getInstance().getAllGroups().clear();
 		
@@ -227,16 +234,19 @@ public class PayMeBackBDD {
 		List<Group> allGroups = cursorToListGroup(c_groups);
 		
 		//members
-		int id = 0;
+		System.out.println("getting members");
+		int id_g = 0;
 		for (int i = 0; i<allGroups.size(); i++){
-			id = i+1;
-			Cursor c_members = bdd.query(MEMBER_TABLE_NAME, new String [] {COL_ID, COL_NAME, COL_ID_G}, COL_ID_G + " = " + id, null, null, null, null);
+			id_g = i+1;
+			Cursor c_members = bdd.query(MEMBER_TABLE_NAME, new String [] {COL_ID, COL_NAME, COL_ID_G}, COL_ID_G + " = " + id_g, null, null, null, null);
 			List<Member> members = cursorToListMembers(c_members);
 			allGroups.get(i).setMembers(members);
 		}
 		
 		//expenses
-		int id_g = 0;
+		System.out.println("getting expenses");
+
+		id_g = 0;
 		for (int i = 0; i<allGroups.size(); i++){
 			id_g = i+1;
 			Cursor c_expenses = bdd.query(EXPENSE_TABLE_NAME, 
@@ -247,8 +257,46 @@ public class PayMeBackBDD {
 		}
 		
 		//participants
+		System.out.println("getting participants");
+
+		id_g = 1;
+		int id_e = 1;
+		for (Group g: allGroups){
+			List<Expense> expenses = g.getExpenses();
+			for (Expense e: expenses){
+				List<Member> participants = new ArrayList<Member>();
+				List<Double> shares = new ArrayList<Double>();
+				
+				Cursor c = bdd.query(PARTICIPANT_TABLE_NAME,
+						new String [] {COL_ID_P, COL_ID_E, COL_ID_G, COL_SHARE},
+						COL_ID_E + " = " + id_e + " AND " + COL_ID_G + " = " + id_g,
+						null, null, null, null);
+				
+				System.out.println("nb de participants: "+c.getCount());
+
+				if (!(c.getCount() == 0)){
+					c.moveToFirst();
+					Member firstP = g.getMembers().get((c.getInt(NUM_COL_ID_P))-1);
+					participants.add(firstP);
+					shares.add((c.getInt(NUM_COL_ID))-1, c.getDouble(NUM_COL_SHARE));
+					while (c.moveToNext()){
+						Member p = g.getMembers().get((c.getInt(NUM_COL_ID_P))-1);
+						participants.add(p);
+						shares.add((c.getInt(NUM_COL_ID))-1, c.getDouble(NUM_COL_SHARE));
+					}
+				}
+				e.setParticipants(participants);
+				e.setShares(shares);
+				allGroups.get(id_g - 1).getExpenses().set(id_e - 1, e);
+			}
+			id_e ++;
+		}
+		id_g ++;
+		
+		GroupContainer.getInstance().setAllGroups(allGroups);
+		System.out.println("bdd loaded in model!!");
 	}
 	
-	*/
+	
 	
 }

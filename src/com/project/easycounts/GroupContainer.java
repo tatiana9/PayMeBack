@@ -52,6 +52,9 @@ public final class GroupContainer {
 	public List<Group> getAllGroups(){
 		return allGroups;
 	}
+	public void setAllGroups(List<Group> groups){
+		this.allGroups = groups;
+	}
 	
 	public List<String> getGroupsNames(){
 		List<String> names = new ArrayList<String>();

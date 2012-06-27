@@ -32,6 +32,7 @@ public class BalanceActivity extends Activity {
         //initialize group and membersNames
     	group = GroupContainer.getInstance().getCurrentGroup();
     	membersNames = group.getMembersNames();
+    	System.out.println("on create balanceActivity : membersNames.size = "+membersNames.size());
         
         //DO NOT change order of those gets
         total = getGlobalBalance();
@@ -67,13 +68,14 @@ public class BalanceActivity extends Activity {
     }
     
     public double[] getExpendituresBalance(){
-    	Group group = GroupContainer.getInstance().getCurrentGroup();
     	realTotal = new double[membersNames.size()];
     	for (int i=0; i<realTotal.length; i++){
         	realTotal[i] = -total[i];
     	}
     	for (Expense e : group.getExpenses()){
+    		System.out.println("payer: "+e.getPayer());
     		int p = group.getMemberPosition(e.getPayer());
+    		System.out.println("payer position " +p);
     		realTotal[p] += e.getAmount();
     	}
     	return realTotal;
