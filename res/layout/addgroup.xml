@@ -41,6 +41,7 @@
         	android:id="@+id/groupName"
         	android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
+        	android:singleLine="true"
         	android:hint="@string/group_name"
         	/>
     
@@ -58,16 +59,10 @@
 	</LinearLayout>
 
 	<LinearLayout
+	    android:id="@+id/listMembers"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:orientation="vertical">
-    
-    	<ListView
-    	    android:id="@+id/listMembers"
-        	android:layout_width="fill_parent"
-        	android:layout_height="fill_parent"
-        	/>
-    	
     </LinearLayout>
     
 

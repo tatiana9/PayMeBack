@@ -21,7 +21,6 @@ public class TransactionsActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.transactions);
         
-        final Button returnButton = (Button) findViewById(R.id.goBack);
         transactionsView = (TextView) findViewById(R.id.transactions);
         
         //initialize membersNames
@@ -33,13 +32,7 @@ public class TransactionsActivity extends Activity{
         trans = extras.getDoubleArray("amounts");
         
         setTransactionsView();
-        
-        returnButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), BalanceActivity.class);
-				startActivity(intent);
-			}
-		});
+
     }
 	
     private void setTransactionsView(){

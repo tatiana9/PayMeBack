@@ -288,12 +288,14 @@ public class PayMeBackBDD {
 		int id_e = 1;
 		for (Group g: allGroups){
 			List<Expense> expenses = g.getExpenses();
+			id_e = 1;
 			for (Expense e: expenses){
 				List<Member> participants = new ArrayList<Member>();
 				List<Double> shares = new ArrayList<Double>();
 				for (int i=0; i<g.getMembers().size(); i++){
 					shares.add(0.0);
 				}
+				System.out.println("taille shares avant plein : "+shares.size());
 				
 				Cursor c = bdd.query(PARTICIPANT_TABLE_NAME,
 						new String [] {COL_ID_P, COL_ID_E, COL_ID_G, COL_SHARE},
@@ -301,8 +303,9 @@ public class PayMeBackBDD {
 						null, null, null, null);
 				
 				int participantsCount = c.getCount();
+				
 				System.out.println("nb de participants : "+participantsCount);
-
+				
 				if (!(participantsCount == 0)){
 					c.moveToFirst();
 					int firstId = c.getInt(NUM_COL_ID_P);
@@ -310,7 +313,9 @@ public class PayMeBackBDD {
 					Member firstP = g.getMembers().get(firstId-1);
 					System.out.println(firstP.getName());
 					participants.add(firstP);
-					shares.add(firstId-1, c.getDouble(NUM_COL_SHARE));
+					//shares.add(firstId-1, c.getDouble(NUM_COL_SHARE));
+					shares.set(firstId-1, c.getDouble(NUM_COL_SHARE));
+					
 					while (c.moveToNext()){
 						System.out.println("un tour dans while");
 						int id = c.getInt(NUM_COL_ID_P);
@@ -318,14 +323,22 @@ public class PayMeBackBDD {
 						Member p = g.getMembers().get(id-1);
 						System.out.println(p.getName());
 						participants.add(p);
-						shares.add(id-1, c.getDouble(NUM_COL_SHARE));
+						shares.set(id-1, c.getDouble(NUM_COL_SHARE));
 						System.out.println("Fini le tour");
 					}
 				}
 				e.setParticipants(participants);
 				e.setShares(shares);
-				allGroups.get(id_g - 1).getExpenses().set(id_e - 1, e);
+				System.out.println("shares size : "+shares.size());
 				
+				try{
+					int ig = id_g - 1;
+					int ie = id_e - 1;
+					System.out.println("id_g-1 : "+ig+", id_e-1 : "+ie);
+					allGroups.get(ig).getExpenses().set(ie, e);
+				} catch (IndexOutOfBoundsException exc){
+					System.err.println(exc);
+				}
 				id_e ++;
 			}
 			id_g ++;

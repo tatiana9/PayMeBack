@@ -25,7 +25,6 @@ public class BalanceActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.balance);
         
-        final Button returnButton = (Button) findViewById(R.id.goBack);
         final Button transactionsButton = (Button) findViewById(R.id.transactions);
         globalBalance = (TextView) findViewById(R.id.globalBalance);
         expendituresBalance = (TextView) findViewById(R.id.expendituresBalance);
@@ -41,13 +40,6 @@ public class BalanceActivity extends Activity {
         		
         setGlobalTextView();
         setExpendituresTextView();
-        
-        returnButton.setOnClickListener(new View.OnClickListener() {			
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), GroupActivity.class);
-				startActivity(intent);
-			}
-		});
         
         transactionsButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
