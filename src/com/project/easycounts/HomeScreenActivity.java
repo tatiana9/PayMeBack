@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class HomeScreenActivity extends Activity{
 	private PayMeBackBDD bdd;
@@ -38,8 +39,13 @@ public class HomeScreenActivity extends Activity{
         
         loadGroupButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), AllGroupsActivity.class);
-				startActivity(intent);
+				if (GroupContainer.getInstance().getSize() > 0){
+					Intent intent = new Intent(v.getContext(), AllGroupsActivity.class);
+					startActivity(intent);
+				}
+				else{
+					Toast.makeText(v.getContext(), "You have no no groups yet!", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 		

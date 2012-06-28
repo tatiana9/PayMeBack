@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/money_bags"
+    android:paddingLeft="16dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical">
+
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
 	<TextView
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
+	    android:textColor="@color/black"
+    	android:textSize="16sp"
+    	android:textStyle="bold"
+    	android:layout_gravity="center"
+    	android:layout_marginBottom="10dp"
 	    android:text="@string/transactionsSlogan"
+	    android:background="@color/white"
 	    />	
+	<View
+		android:layout_width="fill_parent"
+        android:layout_height="1dp"
+       	android:background="#FF909090" 
+        android:layout_marginBottom="10dp"
+        />
 	<TextView
 	    android:id="@id/transactions"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
+	    android:textStyle="italic"
+	    android:textColor="@color/orange"
+	    android:background="@color/white"	    
 	    />
 	
 </LinearLayout>
+</ScrollView>

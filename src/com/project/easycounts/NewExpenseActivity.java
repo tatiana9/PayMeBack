@@ -8,15 +8,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,7 +39,9 @@ public class NewExpenseActivity extends Activity {
 	private List<String> membersNames;
 	private Expense newExpense;
 	private Expense oldExpense;
-	private ListView participantsListView;
+	//private ListView participantsListView;
+	private View participantsList;
+	private List<View> viewsList;
 	
 	//class variables for date picker
 	private TextView mDateDisplay;
@@ -88,6 +94,11 @@ public class NewExpenseActivity extends Activity {
         	addExpenseButton.setText("Edit Expense");
         }
         
+      	//ListView
+        //participantsListView = (ListView) findViewById(R.id.participantsList);
+        participantsList = findViewById(R.id.participantsList);
+        viewsList = new ArrayList<View>();
+        updateList();
         
         addFriendButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -105,10 +116,11 @@ public class NewExpenseActivity extends Activity {
 							if (!membersNames.contains(name)){
 								GroupContainer.getInstance().getCurrentGroup().addMember(name);
 								updateSpinner();
-								updateListView();
+								//updateListView();
+								updateList();
 							}
 							else {
-								Toast.makeText(getApplicationContext(), "This member already exists", Toast.LENGTH_LONG).show();
+								Toast.makeText(getApplicationContext(), "This member already exists or hasn't been modified", Toast.LENGTH_LONG).show();
 							}
 						}
 					}
@@ -155,9 +167,7 @@ public class NewExpenseActivity extends Activity {
         	
         };
         
-        //ListView
-        participantsListView = (ListView) findViewById(R.id.participantsList);
-        updateListView();
+        
         
         
         if (expenseType == OLD_EXPENSE){
@@ -209,6 +219,7 @@ public class NewExpenseActivity extends Activity {
 					newExpense.setDate(mYear, mMonth, mDay);
 				
 					//get participants
+					/*
 					int count = participantsListView.getAdapter().getCount();
 					int participantsCount = 0;
 					for (int i=0; i<count; i++){
@@ -217,6 +228,18 @@ public class NewExpenseActivity extends Activity {
 							participantsCount ++;
 						}
 					}
+					*/
+					int participantsCount = 0;
+					for (View view: viewsList){
+						CheckBox cb = (CheckBox) view.findViewById(R.id.checkBox);
+						TextView tv = (TextView) view.findViewById(R.id.participantItemName);
+						if (cb.isChecked()){
+							newExpense.addParticipant(tv.getText().toString());
+							participantsCount ++;
+						}
+					}
+					
+					
 					System.out.println("nb de participants: "+newExpense.getParticipants().size());
 					System.out.println("verification participantsCount: "+participantsCount);
 					if (participantsCount > 0){
@@ -321,7 +344,7 @@ public class NewExpenseActivity extends Activity {
     	return null;
     }
     
-    
+    /*
     private void updateListView(){
     	updateMembersNames();
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, membersNames);
@@ -330,6 +353,22 @@ public class NewExpenseActivity extends Activity {
 	    //participantsListView.setTextFilterEnabled(true);
 	    participantsListView.setItemsCanFocus(false);
 	    participantsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+    }
+    */
+    
+    private void updateList(){
+    	updateMembersNames();
+    	LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    	((LinearLayout)participantsList).removeAllViews();
+    	viewsList.clear();
+    	for (String name: membersNames){
+			View view = inflater.inflate(R.layout.list_participant_item, null);
+			((TextView)view.findViewById(R.id.participantItemName)).setText(name);
+			((CheckBox)view.findViewById(R.id.checkBox)).setChecked(false);
+			viewsList.add(view);
+			((LinearLayout) participantsList).addView(view);
+		}
+		System.out.println("verif : taille paticipantsList after updatlist : " + viewsList.size());
     }
 
 	private void updateMembersNames(){
@@ -370,12 +409,27 @@ public class NewExpenseActivity extends Activity {
 		spinner.setSelection(pos);
 		
 		//set participants
+		/*
 		for (int i=0; i<membersNames.size(); i++){
 			if (oldExpense.getParticipantsNames().contains(participantsListView.getItemAtPosition(i).toString())){
 				participantsListView.setItemChecked(i, true);
 			}
 			else {
 				participantsListView.setItemChecked(i, false);
+			}
+		}
+		*/
+    	LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		for (String name: membersNames){
+			View view = inflater.inflate(R.layout.list_participant_item, null);
+			TextView tv = (TextView) view.findViewById(R.id.participantItemName);
+			System.out.println("check prefill : "+name+", in tv : "+tv.getText().toString());
+			
+			if (oldExpense.getParticipantsNames().contains(tv.getText().toString())){
+				((CheckBox) view.findViewById(R.id.checkBox)).setChecked(true);
+			}
+			else{
+				((CheckBox) view.findViewById(R.id.checkBox)).setChecked(false);
 			}
 		}
 	}
@@ -417,7 +471,7 @@ public class NewExpenseActivity extends Activity {
 		bdd.open();
 		int groupID = GroupContainer.getInstance().getCursor() + 1;
 		//in case members have been added with button add friend => update membersTable in BDD
-		System.out.println("update. nb de membres = "+membersNames.size());
+		System.out.println("update nb de membres = "+membersNames.size());
 		long nbMembersInserted = bdd.updateMembersList(membersNames, groupID);
 		System.out.println("update done, "+nbMembersInserted+" inserted");
 		

@@ -102,7 +102,7 @@ public class BalanceActivity extends Activity {
     private void setExpendituresTextView(){
     	String s = "";
     	for (int i=0; i<total.length; i++){
-    		if (realTotal[i] > 0){
+    		if (realTotal[i] >= 0){
         		s += membersNames.get(i) + " lent " + realTotal[i] + " euros" + "\n";
     		}
     		else{

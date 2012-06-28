@@ -1,69 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/dark_green"
+    android:paddingLeft="16dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:orientation="vertical" >
-<!--    
-    <TextView
+	
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/group_name" 
-        />
- -->
- 
- 	<LinearLayout 
-	    android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:orientation="vertical">
-    	
-		<Button
-    	    android:id="@+id/applyCreateGroup"
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:text="@string/apply" 
-    	    />
-		<Button
-    	    android:id="@+id/cancelCreateGroup"
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:text="@string/cancel" 
-    	    />
-	</LinearLayout>
-	
- 	<LinearLayout
- 	    android:layout_width="fill_parent"
+ 
+   	<TextView
+   		android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:orientation="vertical" >
-   
-    	<EditText
-        	android:id="@+id/groupName"
-        	android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:singleLine="true"
-        	android:hint="@string/group_name"
-        	/>
+    	android:textColor="@color/white"
+    	android:textSize="18sp"
+    	android:textStyle="bold"
+    	android:layout_marginBottom="16dp"
+    	android:text="@string/addNewGroup" 
+    	/>
+ 	    
+   	<EditText
+        android:id="@+id/groupName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/group_name"
+        />
+   	
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_marginBottom="20dp">
     
     	<TextView
-    	    android:layout_width="fill_parent"
+    	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
+    	    android:textColor="@color/white"
+    	    android:textSize="18sp"
+    	    android:textStyle="bold"
+    	    android:gravity="bottom"
+    	    android:layout_alignParentLeft="true"
     	    android:text="@string/members" 
     	    />
     	<ImageButton
     	    android:id="@+id/addMember"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
+    	    android:layout_marginRight="10dp"
+    	    android:layout_alignParentRight="true"
+    	    android:background="@null"
     	    android:src="@drawable/bigplus"
     	    />
-	</LinearLayout>
+	</RelativeLayout>
 
 	<LinearLayout
 	    android:id="@+id/listMembers"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
-    	android:orientation="vertical">
+    	android:orientation="vertical"
+    	android:layout_marginBottom="30dp">
     </LinearLayout>
     
-
-</LinearLayout>
+	<RelativeLayout 
+	    android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal">
+    	
+		<Button
+    	    android:id="@+id/applyCreateGroup"
+    	    android:layout_width="130dp"
+    	    android:layout_height="50dp"
+    		android:textSize="18sp"
+    		android:textStyle="bold"
+    		android:layout_alignParentLeft="true"
+    	    android:text="@string/apply" 
+    	    />
+		<Button
+    	    android:id="@+id/cancelCreateGroup"
+    	    android:layout_width="130dp"
+    	    android:layout_height="50dp"
+   	    	android:textSize="18sp"
+    		android:textStyle="bold"
+    		android:layout_alignParentRight="true"   		  		
+    	    android:text="@string/cancel" 
+    	    />
+	</RelativeLayout>
+	
+	</LinearLayout>
+</ScrollView>

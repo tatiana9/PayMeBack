@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:id="@+id/expenseItemName"
-    	android:layout_width ="fill_parent"
-    	android:layout_height = "fill_parent"
-    	android:padding="10dp"
-    	android:textSize="16sp" 
-    	>
-    </TextView> 
+    
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width ="fill_parent"
+    android:layout_height = "fill_parent"
+    android:orientation="horizontal"
+    >
+    
+    <View
+        android:id="@+id/line"
+		android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#FF909090" 
+        />
+    
+    
+    <TextView
+        android:id="@+id/expenseItemName"
+    	android:layout_width ="wrap_content"
+    	android:layout_height = "wrap_content"
+    	android:textColor="@color/white"
+    	android:textSize="20sp"
+    	android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/line"
+    	/>
+    
+    <TextView
+        android:id="@+id/expenseItemAmount"
+    	android:layout_width ="wrap_content"
+    	android:layout_height = "wrap_content"
+    	android:textColor="@color/white"
+    	android:textSize="20sp"
+    	android:textStyle="normal"
+        android:layout_marginLeft="10dp"
+    	android:layout_alignParentRight="true"
+    	android:layout_below="@+id/line"
+    	/>
+    
+    <TextView
+        android:id="@+id/expenseItemInfos"
+    	android:layout_width ="wrap_content"
+    	android:layout_height = "wrap_content"
+    	android:textColor="@color/orange"
+    	android:textSize="16sp"
+    	android:textStyle="italic"
+        android:layout_marginLeft="15dp"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/expenseItemName"
+    	/>
+
+     
+ </RelativeLayout>

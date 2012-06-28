@@ -2,25 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:gravity="center"
+    android:background="@drawable/money_bags"
     android:orientation="vertical" >
-
+	<!-- 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:layout_marginBottom="70dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="@string/welcome" 
-        />
+        />  -->
 
     <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_group" 
         android:id= "@+id/addGroup"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="15dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="@string/add_group" 
         />
 
     <Button
         android:id="@+id/loadGroup"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:text="@string/load_group" />
         
 </LinearLayout>

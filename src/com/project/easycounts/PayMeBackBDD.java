@@ -295,7 +295,7 @@ public class PayMeBackBDD {
 				for (int i=0; i<g.getMembers().size(); i++){
 					shares.add(0.0);
 				}
-				System.out.println("taille shares avant plein : "+shares.size());
+				System.out.println(" taille shares avant plein : "+shares.size());
 				
 				Cursor c = bdd.query(PARTICIPANT_TABLE_NAME,
 						new String [] {COL_ID_P, COL_ID_E, COL_ID_G, COL_SHARE},

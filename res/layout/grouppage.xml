@@ -2,6 +2,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/dark_green"
+    android:paddingLeft="16dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:orientation="vertical" >
     
     <LinearLayout
@@ -9,26 +14,44 @@
     	android:layout_height="wrap_content"
     	android:orientation="vertical">
     
-    	<LinearLayout
+    	<RelativeLayout
         	android:layout_width="fill_parent"
     		android:layout_height="wrap_content"
-    		android:orientation="vertical">
+    		android:orientation="horizontal"
+    		android:layout_marginBottom="20dp">
+    		
 			<Button
         		android:id="@+id/addExpense"
-        		android:layout_width="fill_parent"
-        		android:layout_height="wrap_content"
+        		android:layout_width="140dp"
+    	    	android:layout_height="50dp"
+   	    		android:textSize="18sp"
+    			android:textStyle="bold"
+    			android:layout_alignParentLeft="true"
         		android:text="@string/add_expense" 
         		/>
 	
 			<Button 
     		    android:id="@+id/balance"
-    		    android:layout_width="fill_parent"
-    		    android:layout_height="wrap_content"
+    		    android:layout_width="140dp"
+    	    	android:layout_height="50dp"
+   	    		android:textSize="18sp"
+    			android:textStyle="bold"
+    			android:layout_alignParentRight="true"
     		    android:text="@string/balance" 
 			    />
 
-		</LinearLayout>
+		</RelativeLayout>
 	
+    	<TextView
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:textColor="@color/white"
+    	    android:textSize="18sp"
+    	    android:textStyle="bold"
+    	    android:layout_marginBottom="20dp"
+    	    android:text="@string/expenses" 
+    	    />
+    	
 		<LinearLayout
 		    android:id="@+id/listExpenses"
     		android:layout_width="fill_parent"

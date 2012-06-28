@@ -43,12 +43,18 @@ public class GroupActivity  extends Activity {
 		    view.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					int position = GroupContainer.getInstance().getCurrentGroup().getExpensePosition(((TextView)v).getText().toString());
-					System.out.println("expense position : "+position);
-					Intent intent = new Intent(getApplicationContext(), NewExpenseActivity.class);
-					intent.putExtra("expenseType", OLD_EXPENSE);
-					intent.putExtra("current_expense", position);
-					startActivity(intent);
+					//int position = GroupContainer.getInstance().getCurrentGroup().getExpensePosition(((TextView)v).getText().toString());
+					TextView t = (TextView) v.findViewById(R.id.expenseItemName);
+					try{
+						int position = GroupContainer.getInstance().getCurrentGroup().getExpensePosition(t.getText().toString());
+						System.out.println("expense position : "+position);
+						Intent intent = new Intent(getApplicationContext(), NewExpenseActivity.class);
+						intent.putExtra("expenseType", OLD_EXPENSE);
+						intent.putExtra("current_expense", position);
+						startActivity(intent);
+					} catch (Exception e){
+						System.err.println(e);
+					}
 				}
 			});
 		}
@@ -117,6 +123,8 @@ public class GroupActivity  extends Activity {
 			View view = inflater.inflate(R.layout.list_expense_item, null);
 			//String s = e.getName()+"\n"+e.getMonth()+"-"+e.getDay()+"-"+e.getYear()+", "+e.getAmount()+" euros";
 			((TextView)view.findViewById(R.id.expenseItemName)).setText(e.getName());
+			((TextView)view.findViewById(R.id.expenseItemAmount)).setText(e.getAmount() + " Û");
+			((TextView)view.findViewById(R.id.expenseItemInfos)).setText("paid by "+e.getPayer()+", "+e.getMonth()+"-"+e.getDay()+"-"+e.getYear());
 			viewsList.add(view);
 			((LinearLayout) list).addView(view);
 		}

@@ -41,8 +41,16 @@ public class TransactionsActivity extends Activity{
     	while((!isRaz(trans))&&(i<=membersNames.size())){
     		int indMax = getMaxInd(trans);
     		int indMin = getMinInd(trans);
-    		double x = - trans[indMin];
-    		s += membersNames.get(indMin) + " gives " + x + " to " + membersNames.get(indMax) + "\n";
+    		double x =0.0;
+    		if (trans[indMin] < 0){
+        		x = - trans[indMin];
+    		}
+    		else{
+    			x = trans[indMin];
+    		}
+    		System.out.println("min: "+x);
+
+    		s += membersNames.get(indMin) + " gives " + x + "Û to " + membersNames.get(indMax) + "\n";
     		trans[indMax] = getRound(trans[indMax] + trans[indMin]);
     	    trans[indMin] = 0.0;
     	    i++;

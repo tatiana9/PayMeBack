@@ -89,4 +89,20 @@ public final class GroupContainer {
 		allGroups.remove(this.getSize()-1);
 		return g;
 	}
+	
+	public double getTotal(String groupName){
+		double x = 0;
+		int i = getGroupPosition(groupName);
+		Group group = getGroupAt(i);
+		for (Expense e: group.getExpenses()){
+			x += e.getAmount();
+		}
+		return getRound(x);
+	}
+	
+	private double getRound(double x){
+		//arrondir à 2 chiffres après la virgule)
+		double arr = Math.round(x*100)/(double)100;
+		return arr;
+	}
 }

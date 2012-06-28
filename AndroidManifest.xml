@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddGroupActivity">
+            android:name=".AddGroupActivity"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".AllGroupsActivity">

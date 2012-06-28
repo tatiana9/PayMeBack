@@ -16,10 +16,12 @@
     <string name="group_name">Group Name</string>
     <string name="members">Members:</string>
     <string name="create">Create</string>
+    <string name ="addNewGroup">Add a new group:</string>
     
 <!-- GroupActivity -->    
     <string name="add_expense">Add Expense</string>
     <string name="balance">Balance</string>
+    <string name="expenses">Expenses:</string>
     
 <!-- NewExpenseActivity -->
     <string name="paid_by">Paid by:</string>
@@ -30,6 +32,7 @@
     <string name="date">Date: </string>
     <string name="pick_date">Set date</string>
     <string name="participants">Participants:</string>
+    <string name="addNewExpense">Add a new expense:</string>
     
 <!-- BalanceActivity -->   
     <string name="global_balance">Global Balance:</string>

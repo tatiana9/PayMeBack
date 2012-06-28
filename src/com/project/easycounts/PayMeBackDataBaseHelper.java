@@ -63,6 +63,7 @@ public class PayMeBackDataBaseHelper extends SQLiteOpenHelper {
 		db.execSQL(MEMBER_TABLE_CREATE);
 		db.execSQL(EXPENSE_TABLE_CREATE);
 		db.execSQL(PARTICIPANT_TABLE_CREATE);
+
 	}
 
 	@Override
