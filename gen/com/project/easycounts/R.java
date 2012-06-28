@@ -29,24 +29,24 @@ public final class R {
     }
     public static final class id {
         public static final int addExpense=0x7f060009;
-        public static final int addFriend=0x7f06001b;
+        public static final int addFriend=0x7f06001d;
         public static final int addGroup=0x7f060016;
         public static final int addMember=0x7f060001;
-        public static final int addNewExpense=0x7f060021;
-        public static final int amount=0x7f06001c;
+        public static final int addNewExpense=0x7f060018;
+        public static final int amount=0x7f06001e;
         public static final int applyCreateGroup=0x7f060003;
         public static final int balance=0x7f06000a;
-        public static final int cancelAddExpense=0x7f060022;
+        public static final int cancelAddExpense=0x7f060019;
         public static final int cancelCreateGroup=0x7f060004;
-        public static final int checkBox=0x7f060014;
-        public static final int dateDisplay=0x7f06001e;
-        public static final int dateTitle=0x7f06001d;
+        public static final int checkBox=0x7f060015;
+        public static final int dateDisplay=0x7f06001f;
+        public static final int dateTitle=0x7f060022;
         public static final int deleteButton=0x7f060013;
         public static final int expendituresBalance=0x7f060007;
         public static final int expenseItemAmount=0x7f06000e;
         public static final int expenseItemInfos=0x7f06000f;
         public static final int expenseItemName=0x7f06000d;
-        public static final int expenseName=0x7f060018;
+        public static final int expenseName=0x7f06001a;
         public static final int globalBalance=0x7f060006;
         public static final int groupItemInfos=0x7f060011;
         public static final int groupItemName=0x7f060010;
@@ -57,11 +57,11 @@ public final class R {
         public static final int listMembers=0x7f060002;
         public static final int loadGroup=0x7f060017;
         public static final int memberName=0x7f060012;
-        public static final int paidBy=0x7f060019;
-        public static final int paidBySpinner=0x7f06001a;
-        public static final int participantItemName=0x7f060015;
-        public static final int participantsList=0x7f060020;
-        public static final int pickDate=0x7f06001f;
+        public static final int paidBy=0x7f06001b;
+        public static final int paidBySpinner=0x7f06001c;
+        public static final int participantItemName=0x7f060014;
+        public static final int participantsList=0x7f060021;
+        public static final int pickDate=0x7f060020;
         public static final int transactions=0x7f060008;
     }
     public static final class layout {
@@ -75,7 +75,8 @@ public final class R {
         public static final int list_participant_item=0x7f030007;
         public static final int main=0x7f030008;
         public static final int newexpense=0x7f030009;
-        public static final int transactions=0x7f03000a;
+        public static final int newexpensebis=0x7f03000a;
+        public static final int transactions=0x7f03000b;
     }
     public static final class string {
         public static final int addNewExpense=0x7f050016;

@@ -39,9 +39,9 @@ public class NewExpenseActivity extends Activity {
 	private List<String> membersNames;
 	private Expense newExpense;
 	private Expense oldExpense;
-	//private ListView participantsListView;
-	private View participantsList;
-	private List<View> viewsList;
+	private ListView participantsListView;
+	//private View participantsList;
+	//private List<View> viewsList;
 	
 	//class variables for date picker
 	private TextView mDateDisplay;
@@ -95,10 +95,11 @@ public class NewExpenseActivity extends Activity {
         }
         
       	//ListView
-        //participantsListView = (ListView) findViewById(R.id.participantsList);
-        participantsList = findViewById(R.id.participantsList);
-        viewsList = new ArrayList<View>();
-        updateList();
+        participantsListView = (ListView) findViewById(R.id.participantsList);
+        updateListView();
+        //participantsList = findViewById(R.id.participantsList);
+        //viewsList = new ArrayList<View>();
+        //updateList();
         
         addFriendButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -116,8 +117,8 @@ public class NewExpenseActivity extends Activity {
 							if (!membersNames.contains(name)){
 								GroupContainer.getInstance().getCurrentGroup().addMember(name);
 								updateSpinner();
-								//updateListView();
-								updateList();
+								updateListView();
+								//updateList();
 							}
 							else {
 								Toast.makeText(getApplicationContext(), "This member already exists or hasn't been modified", Toast.LENGTH_LONG).show();
@@ -219,7 +220,7 @@ public class NewExpenseActivity extends Activity {
 					newExpense.setDate(mYear, mMonth, mDay);
 				
 					//get participants
-					/*
+					
 					int count = participantsListView.getAdapter().getCount();
 					int participantsCount = 0;
 					for (int i=0; i<count; i++){
@@ -228,7 +229,8 @@ public class NewExpenseActivity extends Activity {
 							participantsCount ++;
 						}
 					}
-					*/
+					
+					/*
 					int participantsCount = 0;
 					for (View view: viewsList){
 						CheckBox cb = (CheckBox) view.findViewById(R.id.checkBox);
@@ -238,7 +240,7 @@ public class NewExpenseActivity extends Activity {
 							participantsCount ++;
 						}
 					}
-					
+					*/
 					
 					System.out.println("nb de participants: "+newExpense.getParticipants().size());
 					System.out.println("verification participantsCount: "+participantsCount);
@@ -344,7 +346,7 @@ public class NewExpenseActivity extends Activity {
     	return null;
     }
     
-    /*
+    
     private void updateListView(){
     	updateMembersNames();
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, membersNames);
@@ -354,8 +356,8 @@ public class NewExpenseActivity extends Activity {
 	    participantsListView.setItemsCanFocus(false);
 	    participantsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
-    */
     
+    /*
     private void updateList(){
     	updateMembersNames();
     	LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -367,10 +369,11 @@ public class NewExpenseActivity extends Activity {
 			((CheckBox)view.findViewById(R.id.checkBox)).setChecked(false);
 			viewsList.add(view);
 			((LinearLayout) participantsList).addView(view);
+			System.out.println("added a view to layout");
 		}
 		System.out.println("verif : taille paticipantsList after updatlist : " + viewsList.size());
     }
-
+*/
 	private void updateMembersNames(){
     	//TODO : change to method using "cursor" to be in the right group (especially when parent Activity is AllGroupsActivity)
     	Group g = GroupContainer.getInstance().getCurrentGroup();
@@ -408,8 +411,8 @@ public class NewExpenseActivity extends Activity {
 		int pos = adapter.getPosition(oldExpense.getPayer());
 		spinner.setSelection(pos);
 		
-		//set participants
-		/*
+		//set participants BUG
+		
 		for (int i=0; i<membersNames.size(); i++){
 			if (oldExpense.getParticipantsNames().contains(participantsListView.getItemAtPosition(i).toString())){
 				participantsListView.setItemChecked(i, true);
@@ -418,7 +421,9 @@ public class NewExpenseActivity extends Activity {
 				participantsListView.setItemChecked(i, false);
 			}
 		}
-		*/
+		
+		
+		/*
     	LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		for (String name: membersNames){
 			View view = inflater.inflate(R.layout.list_participant_item, null);
@@ -432,6 +437,7 @@ public class NewExpenseActivity extends Activity {
 				((CheckBox) view.findViewById(R.id.checkBox)).setChecked(false);
 			}
 		}
+	*/
 	}
 	
 	private boolean nameIsAvailable(String name){
